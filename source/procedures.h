@@ -8,17 +8,3 @@
  * Pacman adapté sur plateforme Nintendo DS.
  *
  */
-
-#include "procedures.h"
-
-/**
- * @fn int main( void )
- * @brief Entrée principale du programme.
- *
- * @return 0 si arrêt normal du programme
- */
-
-int main( void )
-{
-	return 0;
-}
