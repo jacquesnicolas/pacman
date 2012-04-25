@@ -63,7 +63,12 @@ void init_start ()
  */
 void chargement_palettes ()
 {
-
+	
+	PA_DualLoadSpritePal(0, (void*)joueur_d_Pal);
+	PA_DualLoadSpritePal(1, (void*)joueur_g_Pal);
+	PA_DualLoadSpritePal(2, (void*)joueur_h_Pal);
+	PA_DualLoadSpritePal(3, (void*)joueur_b_Pal);
+	
 }
 
 
@@ -98,7 +103,77 @@ void init_tab ()
 /*  *********************************                     ********************************* */
 
 
+void pause ()
+{
+	bool fin = false;
 
+	while(fin==false)// attend la pression du bouton start
+	{
+		PA_WaitForVBL();
+		if(Pad.Newpress.Start)
+		{
+			fin=true;
+		}
+	}
+}
+
+void reboot ()
+{
+	u8 i;
+
+	for ( i=0; i < 128; i++)
+	{
+	    PA_DeleteSprite(1, i);
+	    PA_DeleteSprite(0, i);
+	}
+
+    initialisation();
+}
+
+
+void jeu()
+{
+
+	s32 x = 0;    s32 y = 0; // sprite position...
+	
+	/*!< Boucle infinie pour le déroulement du jeu >*/
+	while(1)
+	{
+	    if(Pad.Newpress.Start) pause();
+
+	    if(Pad.Newpress.Select) reboot();
+		
+		
+		/*!< Déplacement du pacman >*/
+		PA_LoadDefaultText(0,0);
+	
+		PA_LoadSpritePal(0, // Screen
+						0, // Palette number
+						(void*)joueur_d_Pal);	// Palette name
+		
+		//Create the sprite
+		PA_DualCreateSprite(0,(void*)joueur_d_Sprite, OBJ_SIZE_16X16,1, 0, 0, 0); // No need to choose the screen
+		
+		
+		while(1){ // Main loop
+			
+			// Update the position according to the keypad...
+			x += Pad.Held.Right - Pad.Held.Left;
+			y += Pad.Held.Down - Pad.Held.Up;
+			
+			// Set the sprite's position
+			PA_DualSetSpriteXY(0, // sprite
+							   x, // x position
+							   y); // y...
+						   
+			PA_WaitForVBL();
+		}
+		
+
+        PA_WaitForVBL();
+	}
+
+}
 
 
 /**

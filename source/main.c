@@ -22,6 +22,8 @@ int main( void )
 {
 
 	initialisation();
+	
+	jeu();
 
 	return 0;
 }
