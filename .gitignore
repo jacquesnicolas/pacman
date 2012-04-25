@@ -1,2 +1,4 @@
-
+build.bat
+clean.bat
+Makefile
 *.nds
