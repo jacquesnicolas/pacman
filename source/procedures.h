@@ -50,6 +50,7 @@ typedef struct{
     s16 value;
     s16 numero_sprite;
     u8 type_sprite;
+	s16 flag;
 }tabInfo;
 
 

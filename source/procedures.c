@@ -121,6 +121,20 @@ void chargement_palettes ()
 	
 	PA_DualLoadSpritePal(0, (void*)pacman_Pal);
 	PA_DualLoadSpritePal(1, (void*)sprite_00_Pal);
+	PA_DualLoadSpritePal(2, (void*)sprite_01_Pal);
+	PA_DualLoadSpritePal(3, (void*)sprite_02_Pal);
+	PA_DualLoadSpritePal(4, (void*)sprite_03_Pal);
+	PA_DualLoadSpritePal(5, (void*)sprite_10_Pal);
+	PA_DualLoadSpritePal(6, (void*)sprite_11_Pal);
+	PA_DualLoadSpritePal(7, (void*)sprite_12_Pal);
+	PA_DualLoadSpritePal(8, (void*)sprite_13_Pal);
+	PA_DualLoadSpritePal(9, (void*)sprite_20_Pal);
+	PA_DualLoadSpritePal(10, (void*)sprite_21_Pal);
+	PA_DualLoadSpritePal(11, (void*)sprite_22_Pal);
+	PA_DualLoadSpritePal(12, (void*)sprite_23_Pal);
+	PA_DualLoadSpritePal(13, (void*)sprite_30_Pal);
+	PA_DualLoadSpritePal(14, (void*)sprite_31_Pal);
+	PA_DualLoadSpritePal(15, (void*)sprite_32_Pal);
 	
 }
 
@@ -155,6 +169,7 @@ void init_tab ()
             tab[i][j].value = 0;
             tab[i][j].numero_sprite = 0;
             tab[i][j].type_sprite = 0;
+            tab[i][j].flag = 0;
         }
 		
 	PA_LoadDefaultText(1, // Top screen
@@ -165,7 +180,7 @@ void init_tab ()
         for ( j = 0; j < 16; ++j )
 		{
             tab[i][j].value = mesGrilles[i][j];
-			PA_OutputText(1, j, i, "%d", tab[i][j].value);
+			// PA_OutputText(1, j, i, "%d", tab[i][j].value); // affichage de la matrice
 		}
             
 	
@@ -185,49 +200,49 @@ void init_tab ()
  */
 void affichage_map ()
 {
-    // u8 i;
-    // u8 j;
-    // u8 k;
-    // u8 l;
+    u8 i;
+    u8 j;
+    u8 k;
+    u8 l;
 
     // PA_OutputText(1,15,15,"%d ", tab[11][5].numero_sprite);
-    // for ( j = 0; j < 15; j+=2 )
-        // for ( i = 0; i < 11; i++ )
-        // {
+    for ( j = 0; j < 15; j+=2 )
+        for ( i = 0; i < 11; i++ )
+        {
 		
-			// if (tab[j][i].value == 0 && tab[j+1][i].value == 0 && tab[j][i].type_sprite != 00)
-			// {
-				// ;
-			// }
-			// else if (tab[j][i].value == 0 && tab[j+1][i].value == 1 && tab[j][i].type_sprite != 01){}
-			// else if (tab[j][i].value == 0 && tab[j+1][i].value == 2 && tab[j][i].type_sprite != 02){}
-			// else if (tab[j][i].value == 0 && tab[j+1][i].value == 3 && tab[j][i].type_sprite != 03){}
-			// else if (tab[j][i].value == 1 && tab[j+1][i].value == 0 && tab[j][i].type_sprite != 10){}
-			// else if (tab[j][i].value == 1 && tab[j+1][i].value == 1 && tab[j][i].type_sprite != 11){}
-			// else if (tab[j][i].value == 1 && tab[j+1][i].value == 2 && tab[j][i].type_sprite != 12){}
-			// else if (tab[j][i].value == 1 && tab[j+1][i].value == 3 && tab[j][i].type_sprite != 13){}
-			// else if (tab[j][i].value == 2 && tab[j+1][i].value == 0 && tab[j][i].type_sprite != 20){}
-			// else if (tab[j][i].value == 2 && tab[j+1][i].value == 1 && tab[j][i].type_sprite != 21){}
-			// else if (tab[j][i].value == 2 && tab[j+1][i].value == 2 && tab[j][i].type_sprite != 22){}
-			// else if (tab[j][i].value == 2 && tab[j+1][i].value == 3 && tab[j][i].type_sprite != 23){}
-			// else if (tab[j][i].value == 3 && tab[j+1][i].value == 0 && tab[j][i].type_sprite != 30){}
-			// else if (tab[j][i].value == 3 && tab[j+1][i].value == 1 && tab[j][i].type_sprite != 31){}
-			// else if (tab[j][i].value == 3 && tab[j+1][i].value == 2 && tab[j][i].type_sprite != 32){}
+			if (tab[j][i].value == 0 && tab[j+1][i].value == 0 && tab[j][i].type_sprite != 00)
+			{
+				;
+			}
+			else if (tab[j][i].value == 0 && tab[j+1][i].value == 1 && tab[j][i].type_sprite != 01){}
+			else if (tab[j][i].value == 0 && tab[j+1][i].value == 2 && tab[j][i].type_sprite != 02){}
+			else if (tab[j][i].value == 0 && tab[j+1][i].value == 3 && tab[j][i].type_sprite != 03){}
+			else if (tab[j][i].value == 1 && tab[j+1][i].value == 0 && tab[j][i].type_sprite != 10){}
+			else if (tab[j][i].value == 1 && tab[j+1][i].value == 1 && tab[j][i].type_sprite != 11){}
+			else if (tab[j][i].value == 1 && tab[j+1][i].value == 2 && tab[j][i].type_sprite != 12){}
+			else if (tab[j][i].value == 1 && tab[j+1][i].value == 3 && tab[j][i].type_sprite != 13){}
+			else if (tab[j][i].value == 2 && tab[j+1][i].value == 0 && tab[j][i].type_sprite != 20){}
+			else if (tab[j][i].value == 2 && tab[j+1][i].value == 1 && tab[j][i].type_sprite != 21){}
+			else if (tab[j][i].value == 2 && tab[j+1][i].value == 2 && tab[j][i].type_sprite != 22){}
+			else if (tab[j][i].value == 2 && tab[j+1][i].value == 3 && tab[j][i].type_sprite != 23){}
+			else if (tab[j][i].value == 3 && tab[j+1][i].value == 0 && tab[j][i].type_sprite != 30){}
+			else if (tab[j][i].value == 3 && tab[j+1][i].value == 1 && tab[j][i].type_sprite != 31){}
+			else if (tab[j][i].value == 3 && tab[j+1][i].value == 2 && tab[j][i].type_sprite != 32){}
 
-        // }
+        }
 
-    // for ( l = 0; l < 30; l++ )
-        // {
-            // PA_DeleteSprite(0,l);
-        // }
+    for ( l = 0; l < 30; l++ )
+        {
+            PA_DeleteSprite(0,l);
+        }
 
-    // for ( k = 0; k < 16; k++ )
-    // {
-        // for ( l = 0; l < 12; l++ )
-        // {
-            // tab[k][l].flag = 0;
-        // }
-    // }
+    for ( k = 0; k < 16; k++ )
+    {
+        for ( l = 0; l < 12; l++ )
+        {
+            tab[k][l].flag = 0;
+        }
+    }
 }
 
 
@@ -260,7 +275,7 @@ void reboot ()
 void deplacement_pacman()
 {
 	
-	s32 x = 0;    s32 y = 0; // sprite position...
+	s32 x = 16*7;    s32 y = 16*16; // sprite position...
 	
 	/*!< Déplacement du pacman >*/
 		PA_LoadDefaultText(0,0);
@@ -275,14 +290,15 @@ void deplacement_pacman()
 		
 		while(1){ // Main loop
 			
-			if (Pad.Held.Up) PA_SetSpriteAnim(0, 0, 0); // screen, sprite, frame
-			if (Pad.Held.Up) PA_SetSpriteAnim(1, 0, 0); // screen, sprite, frame
+			if (Pad.Held.Right) PA_SetSpriteAnim(0, 0, 0); // screen, sprite, frame	
+			if (Pad.Held.Right) PA_SetSpriteAnim(1, 0, 0); // screen, sprite, frame
+			if (Pad.Held.Up) PA_SetSpriteAnim(0, 0, 1); // screen, sprite, frame
+			if (Pad.Held.Up) PA_SetSpriteAnim(1, 0, 1); // screen, sprite, frame
 			if (Pad.Held.Down) PA_SetSpriteAnim(0, 0, 2); // screen, sprite, frame
 			if (Pad.Held.Down) PA_SetSpriteAnim(1, 0, 2); // screen, sprite, frame
 			if (Pad.Held.Left) PA_SetSpriteAnim(0, 0, 3); // screen, sprite, frame
 			if (Pad.Held.Left) PA_SetSpriteAnim(1, 0, 3); // screen, sprite, frame
-			if (Pad.Held.Right) PA_SetSpriteAnim(0, 0, 1); // screen, sprite, frame	
-			if (Pad.Held.Right) PA_SetSpriteAnim(1, 0, 1); // screen, sprite, frame	
+				
 			
 			// Update the position according to the keypad...
 			x += Pad.Held.Right - Pad.Held.Left;
