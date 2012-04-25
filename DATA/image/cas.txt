@@ -1,0 +1,43 @@
+m = mur
+pp = peit point
+gp = gros point
+v = vide
+
+m m m m    ok
+v v v v    ok
+
+m m m pp   ok
+m m m v    ok
+
+m m pp pp  ok
+m m v v    ok
+m m v pp   ok
+m m pp v   ok
+
+m m gp pp  ok
+m m gp v   ok
+m m pp gp  ok
+m m v gp   ok
+m m m gp   ok
+
+m gp pp pp ok //
+m gp v pp  ok //
+m gp pp v  ok //
+m gp v v   ok //
+m pp gp pp ok //
+m v gp pp  ok //
+m pp gp v  ok //
+m v gp v   ok //
+
+m pp pp gp ok
+m v pp gp  ok
+m pp v gp  ok
+m v v gp   ok
+
+m pp pp pp ok
+m v v v    ok
+m v pp pp  ok
+m pp pp v  ok
+m v pp v   ok
+m pp v pp  ok
+p pp v v   ok

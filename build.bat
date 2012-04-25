@@ -1,3 +1,3 @@
-make clean
+@echo off
 make
 pause

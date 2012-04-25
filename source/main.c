@@ -20,5 +20,8 @@
 
 int main( void )
 {
+
+	initialisation();
+
 	return 0;
 }

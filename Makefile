@@ -43,4 +43,4 @@ RELEASEPATH :=
 
 MAKEFILE_VER := ver2
 
-include $(DEVKITPRO)/palib/lib/PA_Makefile
+include $(DEVKITPRO)/PAlib/lib/PA_Makefile
