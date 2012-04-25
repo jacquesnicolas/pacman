@@ -41,3 +41,12 @@ m pp pp v  ok
 m v pp v   ok
 m pp v pp  ok
 p pp v v   ok
+
+
+
+
+00 01 02 03
+11 10 12 13
+22 20 21 23
+ 30 31 32
+

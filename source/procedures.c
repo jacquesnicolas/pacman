@@ -10,6 +10,61 @@
  */
 #include "procedures.h"
 
+tabInfo tab[22][16];
+
+// Grille mesGrilles;
+int mesGrilles[22][16] = {
+	{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+	{2, 2, 2, 2, 2, 2, 2, 1, 1, 2, 2, 2, 2, 2, 2, 2},
+	{2, 1, 1, 2, 1, 1, 2, 1, 1, 2, 1, 1, 2, 1, 1, 2},
+	{3, 1, 1, 2, 1, 1, 2, 1, 1, 2, 1, 1, 2, 1, 1, 3},
+	{2, 1, 1, 2, 1, 1, 2, 1, 1, 2, 1, 1, 2, 1, 1, 2},
+	{2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2},
+	{2, 1, 1, 2, 1, 2, 1, 1, 1, 1, 2, 1, 2, 1, 1, 2},
+	{2, 2, 2, 2, 1, 2, 2, 1, 1, 2, 2, 1, 2, 2, 2, 2},
+	{1, 1, 1, 2, 1, 1, 2, 1, 1, 2, 1, 1, 2, 1, 1, 1},
+	{1, 1, 1, 2, 1, 0, 0, 0, 0, 0, 0, 1, 2, 1, 1, 1},
+	{1, 1, 1, 2, 1, 0, 1, 1, 1, 1, 0, 1, 2, 1, 1, 1},
+	{0, 0, 0, 2, 0, 0, 1, 0, 0, 1, 0, 0, 2, 0, 0, 0},
+	{1, 1, 1, 2, 1, 0, 1, 1, 1, 1, 0, 1, 2, 1, 1, 1},
+	{1, 1, 1, 2, 1, 0, 0, 0, 0, 0, 0, 1, 2, 1, 1, 1},
+	{1, 1, 1, 2, 1, 0, 1, 1, 1, 1, 0, 1, 2, 1, 1, 1},
+	{2, 2, 2, 2, 2, 2, 2, 1, 1, 2, 2, 2, 2, 2, 2, 2},
+	{2, 1, 1, 2, 1, 1, 2, 1, 1, 2, 1, 1, 2, 1, 1, 2},
+	{3, 2, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 2, 3},
+	{1, 2, 1, 2, 1, 2, 1, 1, 1, 1, 2, 1, 2, 1, 2, 1},
+	{2, 2, 2, 2, 1, 2, 2, 1, 1, 2, 2, 1, 2, 2, 2, 2},
+	{2, 1, 1, 1, 1, 1, 2, 1, 1, 2, 1, 1, 1, 1, 1, 2},
+	{2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2},
+	{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
+};
+
+
+
+/**
+ * Variable globale de type balleInfo (Structure)
+ *
+ * Tableau de structure utilisé pour les balles.
+ * Taille NBBALLES déclaré en #define
+ */
+balleInfo balle[NBBALLES];
+
+u8 balle_en_cours;
+
+
+
+/**
+ * Variable globale de type u8
+ *
+ * On définit des intervalles dans lesquels les sprites vont se créer.
+ * La zone de 0 à 12 est réservée aux balles,
+ * La zone de 12 à 30 est réservée aux murs en construction,
+ * La zone de 30 à 128 est réservée aux murs fixes.
+ */
+u8 sprite_pacman = 0;
+u8 sprite_ghost = 1;
+u8 sprite_bonus = 6;
+u8 sprite_mur = 31;
 
 /*  *********************************                     ********************************* */
 /*                                   Partie Initialisation                                  */
@@ -93,7 +148,29 @@ void chargement_fond_ecran ()
  */
 void init_tab ()
 {
+	
+	 u8 i, j;
 
+    for ( i = 0; i < 22; ++i )
+        for ( j = 0; j < 16; ++j )
+        {
+            tab[i][j].value = 0;
+            tab[i][j].numero_sprite = 0;
+            tab[i][j].type_sprite = 0;
+        }
+		
+	PA_LoadDefaultText(1, // Top screen
+	                   2); // Background #2
+
+		
+    for ( i = 0; i < 22; ++i )
+        for ( j = 0; j < 16; ++j )
+		{
+            tab[i][j].value = mesGrilles[i][j];
+			PA_OutputText(1, j, i, "%d", tab[i][j].value);
+		}
+            
+	
 }
 
 
@@ -101,6 +178,60 @@ void init_tab ()
 /*  *********************************                     ********************************* */
 /*                                       Partie JezzBall                                    */
 /*  *********************************                     ********************************* */
+
+/**
+ * @fn void affichage_mur ()
+ * @brief Fonction qui affiche les murs après chaque construction.
+ *
+ * On construit aussi bien les contours du plateau que les murs au fur et à mesure, que les zones grisées.
+ */
+void affichage_map ()
+{
+    u8 i;
+    u8 j;
+    u8 k;
+    u8 l;
+
+    //PA_OutputText(1,15,15,"%d ", tab[11][5].numero_sprite);
+    for ( j = 0; j < 15; j+=2 )
+        for ( i = 0; i < 11; i++ )
+        {
+		
+	 if (tab[j][i].value == 0 && tab[j+1][i].value == 0 && tab[j][i].type_sprite != 00)
+	 {
+		;
+	 }
+else if (tab[j][i].value == 0 && tab[j+1][i].value == 1 && tab[j][i].type_sprite != 01){}
+else if (tab[j][i].value == 0 && tab[j+1][i].value == 2 && tab[j][i].type_sprite != 02){}
+else if (tab[j][i].value == 0 && tab[j+1][i].value == 3 && tab[j][i].type_sprite != 03){}
+else if (tab[j][i].value == 1 && tab[j+1][i].value == 0 && tab[j][i].type_sprite != 10){}
+else if (tab[j][i].value == 1 && tab[j+1][i].value == 1 && tab[j][i].type_sprite != 11){}
+else if (tab[j][i].value == 1 && tab[j+1][i].value == 2 && tab[j][i].type_sprite != 12){}
+else if (tab[j][i].value == 1 && tab[j+1][i].value == 3 && tab[j][i].type_sprite != 13){}
+else if (tab[j][i].value == 2 && tab[j+1][i].value == 0 && tab[j][i].type_sprite != 20){}
+else if (tab[j][i].value == 2 && tab[j+1][i].value == 1 && tab[j][i].type_sprite != 21){}
+else if (tab[j][i].value == 2 && tab[j+1][i].value == 2 && tab[j][i].type_sprite != 22){}
+else if (tab[j][i].value == 2 && tab[j+1][i].value == 3 && tab[j][i].type_sprite != 23){}
+else if (tab[j][i].value == 3 && tab[j+1][i].value == 0 && tab[j][i].type_sprite != 30){}
+else if (tab[j][i].value == 3 && tab[j+1][i].value == 1 && tab[j][i].type_sprite != 31){}
+else if (tab[j][i].value == 3 && tab[j+1][i].value == 2 && tab[j][i].type_sprite != 32){}
+
+        }
+
+    for ( l = 0; l < 30; l++ )
+        {
+            PA_DeleteSprite(0,l);
+        }
+
+    for ( k = 0; k < 16; k++ )
+    {
+        for ( l = 0; l < 12; l++ )
+        {
+            tab[k][l].flag = 0;
+        }
+    }
+}
+
 
 
 void pause ()
@@ -110,10 +241,8 @@ void pause ()
 	while(fin==false)// attend la pression du bouton start
 	{
 		PA_WaitForVBL();
-		if(Pad.Newpress.Start)
-		{
+		if(Pad.Newpress.Start) 
 			fin=true;
-		}
 	}
 }
 
