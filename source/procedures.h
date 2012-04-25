@@ -34,4 +34,12 @@ void init_tab ();
 // void affichage_mur ();
 
 
+
+void jeu();
+
+void pause();
+
+void reboot();
+
+
 #endif // PROCEDURES_H_INCLUDED
