@@ -83,5 +83,7 @@ void pause();
 
 void reboot();
 
+void deplacement_pacman();
+
 
 #endif // PROCEDURES_H_INCLUDED

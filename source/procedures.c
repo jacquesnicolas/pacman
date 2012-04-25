@@ -41,15 +41,15 @@ int mesGrilles[22][16] = {
 
 
 
-/**
- * Variable globale de type balleInfo (Structure)
- *
- * Tableau de structure utilisé pour les balles.
- * Taille NBBALLES déclaré en #define
- */
-balleInfo balle[NBBALLES];
+// /**
+ // * Variable globale de type balleInfo (Structure)
+ // *
+ // * Tableau de structure utilisé pour les balles.
+ // * Taille NBBALLES déclaré en #define
+ // */
+// balleInfo balle[NBBALLES];
 
-u8 balle_en_cours;
+// u8 balle_en_cours;
 
 
 
@@ -119,10 +119,8 @@ void init_start ()
 void chargement_palettes ()
 {
 	
-	PA_DualLoadSpritePal(0, (void*)joueur_d_Pal);
-	PA_DualLoadSpritePal(1, (void*)joueur_g_Pal);
-	PA_DualLoadSpritePal(2, (void*)joueur_h_Pal);
-	PA_DualLoadSpritePal(3, (void*)joueur_b_Pal);
+	PA_DualLoadSpritePal(0, (void*)pacman_Pal);
+	PA_DualLoadSpritePal(1, (void*)sprite_00_Pal);
 	
 }
 
@@ -187,49 +185,49 @@ void init_tab ()
  */
 void affichage_map ()
 {
-    u8 i;
-    u8 j;
-    u8 k;
-    u8 l;
+    // u8 i;
+    // u8 j;
+    // u8 k;
+    // u8 l;
 
-    //PA_OutputText(1,15,15,"%d ", tab[11][5].numero_sprite);
-    for ( j = 0; j < 15; j+=2 )
-        for ( i = 0; i < 11; i++ )
-        {
+    // PA_OutputText(1,15,15,"%d ", tab[11][5].numero_sprite);
+    // for ( j = 0; j < 15; j+=2 )
+        // for ( i = 0; i < 11; i++ )
+        // {
 		
-	 if (tab[j][i].value == 0 && tab[j+1][i].value == 0 && tab[j][i].type_sprite != 00)
-	 {
-		;
-	 }
-else if (tab[j][i].value == 0 && tab[j+1][i].value == 1 && tab[j][i].type_sprite != 01){}
-else if (tab[j][i].value == 0 && tab[j+1][i].value == 2 && tab[j][i].type_sprite != 02){}
-else if (tab[j][i].value == 0 && tab[j+1][i].value == 3 && tab[j][i].type_sprite != 03){}
-else if (tab[j][i].value == 1 && tab[j+1][i].value == 0 && tab[j][i].type_sprite != 10){}
-else if (tab[j][i].value == 1 && tab[j+1][i].value == 1 && tab[j][i].type_sprite != 11){}
-else if (tab[j][i].value == 1 && tab[j+1][i].value == 2 && tab[j][i].type_sprite != 12){}
-else if (tab[j][i].value == 1 && tab[j+1][i].value == 3 && tab[j][i].type_sprite != 13){}
-else if (tab[j][i].value == 2 && tab[j+1][i].value == 0 && tab[j][i].type_sprite != 20){}
-else if (tab[j][i].value == 2 && tab[j+1][i].value == 1 && tab[j][i].type_sprite != 21){}
-else if (tab[j][i].value == 2 && tab[j+1][i].value == 2 && tab[j][i].type_sprite != 22){}
-else if (tab[j][i].value == 2 && tab[j+1][i].value == 3 && tab[j][i].type_sprite != 23){}
-else if (tab[j][i].value == 3 && tab[j+1][i].value == 0 && tab[j][i].type_sprite != 30){}
-else if (tab[j][i].value == 3 && tab[j+1][i].value == 1 && tab[j][i].type_sprite != 31){}
-else if (tab[j][i].value == 3 && tab[j+1][i].value == 2 && tab[j][i].type_sprite != 32){}
+			// if (tab[j][i].value == 0 && tab[j+1][i].value == 0 && tab[j][i].type_sprite != 00)
+			// {
+				// ;
+			// }
+			// else if (tab[j][i].value == 0 && tab[j+1][i].value == 1 && tab[j][i].type_sprite != 01){}
+			// else if (tab[j][i].value == 0 && tab[j+1][i].value == 2 && tab[j][i].type_sprite != 02){}
+			// else if (tab[j][i].value == 0 && tab[j+1][i].value == 3 && tab[j][i].type_sprite != 03){}
+			// else if (tab[j][i].value == 1 && tab[j+1][i].value == 0 && tab[j][i].type_sprite != 10){}
+			// else if (tab[j][i].value == 1 && tab[j+1][i].value == 1 && tab[j][i].type_sprite != 11){}
+			// else if (tab[j][i].value == 1 && tab[j+1][i].value == 2 && tab[j][i].type_sprite != 12){}
+			// else if (tab[j][i].value == 1 && tab[j+1][i].value == 3 && tab[j][i].type_sprite != 13){}
+			// else if (tab[j][i].value == 2 && tab[j+1][i].value == 0 && tab[j][i].type_sprite != 20){}
+			// else if (tab[j][i].value == 2 && tab[j+1][i].value == 1 && tab[j][i].type_sprite != 21){}
+			// else if (tab[j][i].value == 2 && tab[j+1][i].value == 2 && tab[j][i].type_sprite != 22){}
+			// else if (tab[j][i].value == 2 && tab[j+1][i].value == 3 && tab[j][i].type_sprite != 23){}
+			// else if (tab[j][i].value == 3 && tab[j+1][i].value == 0 && tab[j][i].type_sprite != 30){}
+			// else if (tab[j][i].value == 3 && tab[j+1][i].value == 1 && tab[j][i].type_sprite != 31){}
+			// else if (tab[j][i].value == 3 && tab[j+1][i].value == 2 && tab[j][i].type_sprite != 32){}
 
-        }
+        // }
 
-    for ( l = 0; l < 30; l++ )
-        {
-            PA_DeleteSprite(0,l);
-        }
+    // for ( l = 0; l < 30; l++ )
+        // {
+            // PA_DeleteSprite(0,l);
+        // }
 
-    for ( k = 0; k < 16; k++ )
-    {
-        for ( l = 0; l < 12; l++ )
-        {
-            tab[k][l].flag = 0;
-        }
-    }
+    // for ( k = 0; k < 16; k++ )
+    // {
+        // for ( l = 0; l < 12; l++ )
+        // {
+            // tab[k][l].flag = 0;
+        // }
+    // }
 }
 
 
@@ -259,32 +257,32 @@ void reboot ()
     initialisation();
 }
 
-
-void jeu()
+void deplacement_pacman()
 {
-
+	
 	s32 x = 0;    s32 y = 0; // sprite position...
 	
-	/*!< Boucle infinie pour le déroulement du jeu >*/
-	while(1)
-	{
-	    if(Pad.Newpress.Start) pause();
-
-	    if(Pad.Newpress.Select) reboot();
-		
-		
-		/*!< Déplacement du pacman >*/
+	/*!< Déplacement du pacman >*/
 		PA_LoadDefaultText(0,0);
 	
 		PA_LoadSpritePal(0, // Screen
 						0, // Palette number
-						(void*)joueur_d_Pal);	// Palette name
+						(void*)pacman_Pal);	// Palette name
 		
 		//Create the sprite
-		PA_DualCreateSprite(0,(void*)joueur_d_Sprite, OBJ_SIZE_16X16,1, 0, 0, 0); // No need to choose the screen
+		PA_DualCreateSprite(0,(void*)pacman_Sprite, OBJ_SIZE_16X16,1, 0, 64-16, 64); // No need to choose the screen
 		
 		
 		while(1){ // Main loop
+			
+			if (Pad.Held.Up) PA_SetSpriteAnim(0, 0, 0); // screen, sprite, frame
+			if (Pad.Held.Up) PA_SetSpriteAnim(1, 0, 0); // screen, sprite, frame
+			if (Pad.Held.Down) PA_SetSpriteAnim(0, 0, 2); // screen, sprite, frame
+			if (Pad.Held.Down) PA_SetSpriteAnim(1, 0, 2); // screen, sprite, frame
+			if (Pad.Held.Left) PA_SetSpriteAnim(0, 0, 3); // screen, sprite, frame
+			if (Pad.Held.Left) PA_SetSpriteAnim(1, 0, 3); // screen, sprite, frame
+			if (Pad.Held.Right) PA_SetSpriteAnim(0, 0, 1); // screen, sprite, frame	
+			if (Pad.Held.Right) PA_SetSpriteAnim(1, 0, 1); // screen, sprite, frame	
 			
 			// Update the position according to the keypad...
 			x += Pad.Held.Right - Pad.Held.Left;
@@ -297,7 +295,21 @@ void jeu()
 						   
 			PA_WaitForVBL();
 		}
+	
+}
+
+
+void jeu()
+{
+	
+	/*!< Boucle infinie pour le déroulement du jeu >*/
+	while(1)
+	{
+	    if(Pad.Newpress.Start) pause();
+
+	    if(Pad.Newpress.Select) reboot();
 		
+		deplacement_pacman();
 
         PA_WaitForVBL();
 	}
