@@ -1,7 +1,7 @@
 /**
  * @file main.c
  * @brief Projet Polytech Pacman sur Nintendo DS
- * @author Landry SELLERON & Nicolas JACQUES
+ * @author Lendry CELERON & Nicolas JACQUES
  * @version 1.0
  * @date 23 avril 2012
  *
@@ -57,10 +57,9 @@ int mesGrilles[22][16] = {
  * Variable globale de type u8
  *
  * On définit des intervalles dans lesquels les sprites vont se créer.
- * La zone de 0 à 1 est réservée a Pacman,
- * La zone de 2 à 5 est réservée aux fantômes,
- * La zone de 6 à 30 est réservée aux bonnus,
- * La zone de 31 à 128 est réservée aux murs sur la map.
+ * La zone de 0 à 12 est réservée aux balles,
+ * La zone de 12 à 30 est réservée aux murs en construction,
+ * La zone de 30 à 128 est réservée aux murs fixes.
  */
 u8 sprite_pacman = 0;
 u8 sprite_ghost = 1;
@@ -141,79 +140,23 @@ void chargement_palettes ()
 
 
 /**
- * @fn void init_menu_principal ()
- * @brief Fonction qui créé le menu principal du jeu
- *
- * Cette fonction sert à afficher le menu principal.
+ * @fn void chargement_fond_ecran ()
+ * @brief Fonction qui charge les fonds d'écran.
  */
- void init_menu_principal ()
- {
-    u8 i;
-    //Petit jeu de lumière.
-	PA_SetBrightness(0, -31);
-	PA_SetBrightness(1, -31);
-
-    for (i = 0; i < 40; i++)
-	{
-        PA_WaitForVBL();
-	}
-    PA_SetBrightness(0, 0);
-	PA_SetBrightness(1, 0);
-
-    u8 choix = 0;
-
-    PA_Init16bitBg(0, 3);   /*!< Profondeur 3 */
-	PA_Init16bitBg(1, 3);   /*!< Profondeur 3 */
-
-	PA_Load16bitBitmap(0, jeux_bas_Bitmap);
-	PA_Load16bitBitmap(1, jeux_haut_Bitmap);
-
-    while (choix == 0)
-    {
-        if (Stylus.Released)
-        {
-            if ((Stylus.X > 50) && (Stylus.X < 200) && (Stylus.Y > 20) && (Stylus.Y < 60))// cas = 1;
-            {
-				//Petit jeu de lumière.
-				PA_SetBrightness(0, -31);
-				PA_SetBrightness(1, -31);
-
-				for (i = 0; i < 40; i++)
-				{
-					PA_WaitForVBL();
-				}
-				PA_SetBrightness(0, 0);
-				PA_SetBrightness(1, 0);
-				
-                choix = 10;
-            }
-            else if ((Stylus.X > 70) && (Stylus.X < 180) && (Stylus.Y > 80) && (Stylus.Y < 110))// cas = 2;
-            {
-                PA_Load16bitBitmap(1, controls_Bitmap);
-            }
-            else if ((Stylus.X > 90) && (Stylus.X < 165) && (Stylus.Y > 125) && (Stylus.Y < 160))// cas = 3;
-            {
-                PA_Load16bitBitmap(1, about_Bitmap);
-            }
-			else
-			{
-				PA_Load16bitBitmap(1, jeux_haut_Bitmap);
-			}
-        }
-        PA_WaitForVBL();
-    }
-    /*!< On delete les 2 fonds d'écran */
-	PA_DeleteBg(1,3);
-	PA_DeleteBg(0,3);
-
- }
+void chargement_fond_ecran ()
+{
+/*
+    PA_Init16bitBg(0, 3);
+	PA_Load16bitBitmap(0, grilleJezzball_Bitmap);
+	*/
+}
 
 
 /**
  * @fn void init_tab ()
  * @brief Fonction qui créé le tableau selon la structure déclarée.
  *
- * Cette fonction sert de constructeur.
+ * Cette fonction sert de constructeur, et aussi initialise les contours de la maquette.
  */
 void init_tab ()
 {
@@ -229,18 +172,29 @@ void init_tab ()
             tab[i][j].flag = 0;
         }
 		
-	PA_LoadDefaultText(1, // Top screen
-	                   2); // Background #2
-
-		
-    for ( i = 0; i < 22; ++i )
+	//PA_LoadDefaultText(1, // Top screen
+	//                   2); // Background #2
+	
+	PA_InitText( 1,1);
+	
+    for ( i = 0; i < 10; ++i )
         for ( j = 0; j < 16; ++j )
 		{
             tab[i][j].value = mesGrilles[i][j];
-			// PA_OutputText(1, j, i, "%d", tab[i][j].value); // affichage de la matrice
+			PA_OutputText(1, j * 2, (i + 2) * 2, "%d", tab[i][j].value); // affichage de la matrice
 		}
 		
-	affichage_map();
+
+	PA_InitText( 0,1);
+	
+    for ( i = 10; i < 22; ++i )
+        for ( j = 0; j < 16; ++j )
+		{
+            tab[i][j].value = mesGrilles[i][j];
+			PA_OutputText(0, j * 2, (i - 10) * 2, "%d", tab[i][j].value); // affichage de la matrice
+		}
+		
+	//affichage_map();
             
 	
 }
@@ -252,10 +206,10 @@ void init_tab ()
 /*  *********************************                     ********************************* */
 
 /**
- * @fn void affichage_map ()
- * @brief Fonction qui affiche les murs et points.
+ * @fn void affichage_mur ()
+ * @brief Fonction qui affiche les murs après chaque construction.
  *
- * On construit au fure et à mesure des mises à jours.
+ * On construit aussi bien les contours du plateau que les murs au fur et à mesure, que les zones grisées.
  *
  * Utilisation de la fonction PA_CreateSprite(u8 screen, u8 obj_number, void* obj_data, u8 obj_shape, u8 obj_size, u8 color_mode, u8 palette, s16 x, s16 y)
  */
@@ -263,9 +217,10 @@ void affichage_map ()
 {
     u8 i;
     u8 j;
-    // u8 k;
-    // u8 l;
+    u8 k;
+    u8 l;
 
+    // PA_OutputText(1,15,15,"%d ", tab[11][5].numero_sprite);
     for ( j = 0; j < 15; j+=2 )
 	{
         for ( i = 0; i < 10; i++ )
@@ -795,18 +750,18 @@ void affichage_map ()
 		
 		
 
-    // for ( l = 0; l < 30; l++ )
-        // {
-            // PA_DeleteSprite(0,l);
-        // }
+    for ( l = 0; l < 30; l++ )
+        {
+            PA_DeleteSprite(0,l);
+        }
 
-    // for ( k = 0; k < 16; k++ )
-    // {
-        // for ( l = 0; l < 12; l++ )
-        // {
-            // tab[k][l].flag = 0;
-        // }
-    // }
+    for ( k = 0; k < 16; k++ )
+    {
+        for ( l = 0; l < 12; l++ )
+        {
+            tab[k][l].flag = 0;
+        }
+    }
 }
 
 
@@ -909,9 +864,13 @@ void initialisation ()
 
     chargement_palettes ();
 
-    init_menu_principal ();
+    // init_menu_principal ();
 
     // init_menu_jouer ();
 
+    chargement_fond_ecran ();
+
     init_tab ();
+
+    // affichage_mur ();
 }

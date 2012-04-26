@@ -1,7 +1,7 @@
 /**
  * @file main.c
  * @brief Projet Polytech Pacman sur Nintendo DS
- * @author Landry SELLERON & Nicolas JACQUES
+ * @author Lendry CELERON & Nicolas JACQUES
  * @version 1.0
  * @date 23 avril 2012
  *
@@ -64,11 +64,15 @@ void init_start ();
 
 void chargement_palettes ();
 
-void init_menu_principal ();
+// void init_menu_principal ();
 
 // void init_menu_jouer ();
 
+void chargement_fond_ecran ();
+
 void init_tab ();
+
+// void affichage_mur ();
 
 
 
