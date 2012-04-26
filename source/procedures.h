@@ -64,15 +64,11 @@ void init_start ();
 
 void chargement_palettes ();
 
-// void init_menu_principal ();
+void init_menu_principal ();
 
 // void init_menu_jouer ();
 
-void chargement_fond_ecran ();
-
 void init_tab ();
-
-// void affichage_mur ();
 
 
 

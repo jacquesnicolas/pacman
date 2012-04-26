@@ -140,16 +140,72 @@ void chargement_palettes ()
 
 
 /**
- * @fn void chargement_fond_ecran ()
- * @brief Fonction qui charge les fonds d'écran.
+ * @fn void init_menu_principal ()
+ * @brief Fonction qui créé le menu principal du jeu
+ *
+ * Cette fonction sert à afficher le menu principal.
  */
-void chargement_fond_ecran ()
-{
-/*
-    PA_Init16bitBg(0, 3);
-	PA_Load16bitBitmap(0, grilleJezzball_Bitmap);
-	*/
-}
+ void init_menu_principal ()
+ {
+    u8 i;
+    //Petit jeu de lumière.
+	PA_SetBrightness(0, -31);
+	PA_SetBrightness(1, -31);
+
+    for (i = 0; i < 40; i++)
+	{
+        PA_WaitForVBL();
+	}
+    PA_SetBrightness(0, 0);
+	PA_SetBrightness(1, 0);
+
+    u8 choix = 0;
+
+    PA_Init16bitBg(0, 3);   /*!< Profondeur 3 */
+	PA_Init16bitBg(1, 3);   /*!< Profondeur 3 */
+
+	PA_Load16bitBitmap(0, jeux_bas_Bitmap);
+	PA_Load16bitBitmap(1, jeux_haut_Bitmap);
+
+    while (choix == 0)
+    {
+        if (Stylus.Released)
+        {
+            if ((Stylus.X > 50) && (Stylus.X < 200) && (Stylus.Y > 20) && (Stylus.Y < 60))// cas = 1;
+            {
+				//Petit jeu de lumière.
+				PA_SetBrightness(0, -31);
+				PA_SetBrightness(1, -31);
+
+				for (i = 0; i < 40; i++)
+				{
+					PA_WaitForVBL();
+				}
+				PA_SetBrightness(0, 0);
+				PA_SetBrightness(1, 0);
+				
+                choix = 10;
+            }
+            else if ((Stylus.X > 70) && (Stylus.X < 180) && (Stylus.Y > 80) && (Stylus.Y < 110))// cas = 2;
+            {
+                // PA_Load16bitBitmap(1, regles_Bitmap);
+            }
+            else if ((Stylus.X > 90) && (Stylus.X < 165) && (Stylus.Y > 125) && (Stylus.Y < 160))// cas = 3;
+            {
+                // PA_Load16bitBitmap(1, credits_Bitmap);
+            }
+			else
+			{
+				PA_Load16bitBitmap(1, jeux_haut_Bitmap);
+			}
+        }
+        PA_WaitForVBL();
+    }
+    /*!< On delete les 2 fonds d'écran */
+	PA_DeleteBg(1,3);
+	PA_DeleteBg(0,3);
+
+ }
 
 
 /**
@@ -195,7 +251,7 @@ void init_tab ()
 /*  *********************************                     ********************************* */
 
 /**
- * @fn void affichage_mur ()
+ * @fn void affichage_map ()
  * @brief Fonction qui affiche les murs après chaque construction.
  *
  * On construit aussi bien les contours du plateau que les murs au fur et à mesure, que les zones grisées.
@@ -206,10 +262,9 @@ void affichage_map ()
 {
     u8 i;
     u8 j;
-    u8 k;
-    u8 l;
+    // u8 k;
+    // u8 l;
 
-    // PA_OutputText(1,15,15,"%d ", tab[11][5].numero_sprite);
     for ( j = 0; j < 15; j+=2 )
 	{
         for ( i = 0; i < 10; i++ )
@@ -739,18 +794,18 @@ void affichage_map ()
 		
 		
 
-    for ( l = 0; l < 30; l++ )
-        {
-            PA_DeleteSprite(0,l);
-        }
+    // for ( l = 0; l < 30; l++ )
+        // {
+            // PA_DeleteSprite(0,l);
+        // }
 
-    for ( k = 0; k < 16; k++ )
-    {
-        for ( l = 0; l < 12; l++ )
-        {
-            tab[k][l].flag = 0;
-        }
-    }
+    // for ( k = 0; k < 16; k++ )
+    // {
+        // for ( l = 0; l < 12; l++ )
+        // {
+            // tab[k][l].flag = 0;
+        // }
+    // }
 }
 
 
@@ -853,13 +908,9 @@ void initialisation ()
 
     chargement_palettes ();
 
-    // init_menu_principal ();
+    init_menu_principal ();
 
     // init_menu_jouer ();
 
-    chargement_fond_ecran ();
-
     init_tab ();
-
-    // affichage_mur ();
 }
