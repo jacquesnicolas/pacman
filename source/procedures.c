@@ -1,7 +1,7 @@
 /**
  * @file main.c
  * @brief Projet Polytech Pacman sur Nintendo DS
- * @author Lendry CELERON & Nicolas JACQUES
+ * @author Landry SELLERON & Nicolas JACQUES
  * @version 1.0
  * @date 23 avril 2012
  *
@@ -57,9 +57,10 @@ int mesGrilles[22][16] = {
  * Variable globale de type u8
  *
  * On définit des intervalles dans lesquels les sprites vont se créer.
- * La zone de 0 à 12 est réservée aux balles,
- * La zone de 12 à 30 est réservée aux murs en construction,
- * La zone de 30 à 128 est réservée aux murs fixes.
+ * La zone de 0 à 1 est réservée a Pacman,
+ * La zone de 2 à 5 est réservée aux fantômes,
+ * La zone de 6 à 30 est réservée aux bonnus,
+ * La zone de 31 à 128 est réservée aux murs sur la map.
  */
 u8 sprite_pacman = 0;
 u8 sprite_ghost = 1;
@@ -188,11 +189,11 @@ void chargement_palettes ()
             }
             else if ((Stylus.X > 70) && (Stylus.X < 180) && (Stylus.Y > 80) && (Stylus.Y < 110))// cas = 2;
             {
-                // PA_Load16bitBitmap(1, regles_Bitmap);
+                PA_Load16bitBitmap(1, controls_Bitmap);
             }
             else if ((Stylus.X > 90) && (Stylus.X < 165) && (Stylus.Y > 125) && (Stylus.Y < 160))// cas = 3;
             {
-                // PA_Load16bitBitmap(1, credits_Bitmap);
+                PA_Load16bitBitmap(1, about_Bitmap);
             }
 			else
 			{
@@ -212,7 +213,7 @@ void chargement_palettes ()
  * @fn void init_tab ()
  * @brief Fonction qui créé le tableau selon la structure déclarée.
  *
- * Cette fonction sert de constructeur, et aussi initialise les contours de la maquette.
+ * Cette fonction sert de constructeur.
  */
 void init_tab ()
 {
@@ -252,9 +253,9 @@ void init_tab ()
 
 /**
  * @fn void affichage_map ()
- * @brief Fonction qui affiche les murs après chaque construction.
+ * @brief Fonction qui affiche les murs et points.
  *
- * On construit aussi bien les contours du plateau que les murs au fur et à mesure, que les zones grisées.
+ * On construit au fure et à mesure des mises à jours.
  *
  * Utilisation de la fonction PA_CreateSprite(u8 screen, u8 obj_number, void* obj_data, u8 obj_shape, u8 obj_size, u8 color_mode, u8 palette, s16 x, s16 y)
  */
