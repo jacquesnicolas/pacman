@@ -215,299 +215,523 @@ void affichage_map ()
         for ( i = 0; i < 10; i++ )
         {
 		
-			if (tab[j][i].value == 0 && tab[j+1][i].value == 0 && tab[j][i].type_sprite != 00)
-			{
-				if (tab[j][i].numero_sprite = -1)
-                    {
-                        PA_CreateSprite(1, sprite_mur, (void*)sprite_00_Sprite, OBJ_SIZE_32X16, 1, 1,16*j,(16*i)+32);
-                        tab[j][i].numero_sprite = sprite_mur;
-                        tab[j+1][i].numero_sprite = sprite_mur;
-						tab[j][i].value = 0;
-						tab[j+1][i].value = 0;
-						tab[j][i].type_sprite = 00;
-                        sprite_mur++;
-                    }
-                    else if (tab[j][i].numero_sprite != -1)
+			if (tab[i][j].value == 0 && tab[i][j+1].value == 0 && tab[i][j].type_sprite != 00)
+				{
+					if (tab[i][j].numero_sprite = -1)
 						{
-							PA_CreateSprite(1, tab[j][i].numero_sprite, (void*)sprite_00_Sprite, OBJ_SIZE_32X16, 1, 1,16*j,16*i);
+							PA_CreateSprite(1, sprite_mur, (void*)sprite_00_Sprite, OBJ_SIZE_32X16, 1, 1,16*j,(16*i)+32);
+							tab[i][j].numero_sprite = sprite_mur;
+							tab[i][j+1].numero_sprite = sprite_mur;
+							sprite_mur++;
 						}
-                    tab[j][i].value = 0;
-                    tab[j+1][i].value = 0;
-                    tab[j][i].type_sprite = 00;
+						else if (tab[i][j].numero_sprite != -1)
+							{
+								PA_CreateSprite(1, tab[i][j].numero_sprite, (void*)sprite_00_Sprite, OBJ_SIZE_32X16, 1, 1,16*j,(16*i)+32);
+							}
+						tab[i][j].value = 0;
+						tab[i][j+1].value = 0;
+						tab[i][j].type_sprite = 00;
+				}
+			else if (tab[i][j].value == 0 && tab[i][j+1].value == 1 && tab[i][j].type_sprite != 01)
+				{
+					if (tab[i][j].numero_sprite = -1)
+						{
+							PA_CreateSprite(1, sprite_mur, (void*)sprite_01_Sprite, OBJ_SIZE_32X16, 1, 2,16*j,(16*i)+32);
+							tab[i][j].numero_sprite = sprite_mur;
+							tab[i][j+1].numero_sprite = sprite_mur;
+							sprite_mur++;
+						}
+						else if (tab[i][j].numero_sprite != -1)
+							{
+								PA_CreateSprite(1, tab[i][j].numero_sprite, (void*)sprite_01_Sprite, OBJ_SIZE_32X16, 1, 2,16*j,(16*i)+32);
+							}
+						tab[i][j].value = 0;
+						tab[i][j+1].value = 1;
+						tab[i][j].type_sprite = 01;
+				}
+			else if (tab[i][j].value == 0 && tab[i][j+1].value == 2 && tab[i][j].type_sprite != 02)
+			{
+				if (tab[i][j].numero_sprite = -1)
+						{
+							PA_CreateSprite(1, sprite_mur, (void*)sprite_02_Sprite, OBJ_SIZE_32X16, 1, 3,16*j,(16*i)+32);
+							tab[i][j].numero_sprite = sprite_mur;
+							tab[i][j+1].numero_sprite = sprite_mur;
+							sprite_mur++;
+						}
+						else if (tab[i][j].numero_sprite != -1)
+							{
+								PA_CreateSprite(1, tab[i][j].numero_sprite, (void*)sprite_02_Sprite, OBJ_SIZE_32X16, 1, 3,16*j,(16*i)+32);
+							}
+						tab[i][j].value = 0;
+						tab[i][j+1].value = 2;
+						tab[i][j].type_sprite = 02;
 			}
-			else if (tab[j][i].value == 0 && tab[j+1][i].value == 1 && tab[j][i].type_sprite != 01){}
-			else if (tab[j][i].value == 0 && tab[j+1][i].value == 2 && tab[j][i].type_sprite != 02){}
-			else if (tab[j][i].value == 0 && tab[j+1][i].value == 3 && tab[j][i].type_sprite != 03){}
-			else if (tab[j][i].value == 1 && tab[j+1][i].value == 0 && tab[j][i].type_sprite != 10){}
-			else if (tab[j][i].value == 1 && tab[j+1][i].value == 1 && tab[j][i].type_sprite != 11){}
-			else if (tab[j][i].value == 1 && tab[j+1][i].value == 2 && tab[j][i].type_sprite != 12){}
-			else if (tab[j][i].value == 1 && tab[j+1][i].value == 3 && tab[j][i].type_sprite != 13){}
-			else if (tab[j][i].value == 2 && tab[j+1][i].value == 0 && tab[j][i].type_sprite != 20){}
-			else if (tab[j][i].value == 2 && tab[j+1][i].value == 1 && tab[j][i].type_sprite != 21){}
-			else if (tab[j][i].value == 2 && tab[j+1][i].value == 2 && tab[j][i].type_sprite != 22){}
-			else if (tab[j][i].value == 2 && tab[j+1][i].value == 3 && tab[j][i].type_sprite != 23){}
-			else if (tab[j][i].value == 3 && tab[j+1][i].value == 0 && tab[j][i].type_sprite != 30){}
-			else if (tab[j][i].value == 3 && tab[j+1][i].value == 1 && tab[j][i].type_sprite != 31){}
-			else if (tab[j][i].value == 3 && tab[j+1][i].value == 2 && tab[j][i].type_sprite != 32){}
+			else if (tab[i][j].value == 0 && tab[i][j+1].value == 3 && tab[i][j].type_sprite != 03)
+			{
+				if (tab[i][j].numero_sprite = -1)
+						{
+							PA_CreateSprite(1, sprite_mur, (void*)sprite_03_Sprite, OBJ_SIZE_32X16, 1, 4,16*j,(16*i)+32);
+							tab[i][j].numero_sprite = sprite_mur;
+							tab[i][j+1].numero_sprite = sprite_mur;
+							sprite_mur++;
+						}
+						else if (tab[i][j].numero_sprite != -1)
+							{
+								PA_CreateSprite(1, tab[i][j].numero_sprite, (void*)sprite_03_Sprite, OBJ_SIZE_32X16, 1, 4,16*j,(16*i)+32);
+							}
+						tab[i][j].value = 0;
+						tab[i][j+1].value = 3;
+						tab[i][j].type_sprite = 03;
+			}
+			else if (tab[i][j].value == 1 && tab[i][j+1].value == 0 && tab[i][j].type_sprite != 10)
+			{
+				if (tab[i][j].numero_sprite = -1)
+						{
+							PA_CreateSprite(1, sprite_mur, (void*)sprite_10_Sprite, OBJ_SIZE_32X16, 1, 5,16*j,(16*i)+32);
+							tab[i][j].numero_sprite = sprite_mur;
+							tab[i][j+1].numero_sprite = sprite_mur;
+							sprite_mur++;
+						}
+						else if (tab[i][j].numero_sprite != -1)
+							{
+								PA_CreateSprite(1, tab[i][j].numero_sprite, (void*)sprite_10_Sprite, OBJ_SIZE_32X16, 1, 5,16*j,(16*i)+32);
+							}
+						tab[i][j].value = 1;
+						tab[i][j+1].value = 0;
+						tab[i][j].type_sprite = 10;
+			}
+			else if (tab[i][j].value == 1 && tab[i][j+1].value == 1 && tab[i][j].type_sprite != 11)
+			{
+				if (tab[i][j].numero_sprite = -1)
+						{
+							PA_CreateSprite(1, sprite_mur, (void*)sprite_11_Sprite, OBJ_SIZE_32X16, 1, 6,16*j,(16*i)+32);
+							tab[i][j].numero_sprite = sprite_mur;
+							tab[i][j+1].numero_sprite = sprite_mur;
+							sprite_mur++;
+						}
+						else if (tab[i][j].numero_sprite != -1)
+							{
+								PA_CreateSprite(1, tab[i][j].numero_sprite, (void*)sprite_11_Sprite, OBJ_SIZE_32X16, 1, 6,16*j,(16*i)+32);
+							}
+						tab[i][j].value = 1;
+						tab[i][j+1].value = 1;
+						tab[i][j].type_sprite = 11;
+			}
+			else if (tab[i][j].value == 1 && tab[i][j+1].value == 2 && tab[i][j].type_sprite != 12)
+			{
+				if (tab[i][j].numero_sprite = -1)
+						{
+							PA_CreateSprite(1, sprite_mur, (void*)sprite_12_Sprite, OBJ_SIZE_32X16, 1, 7,16*j,(16*i)+32);
+							tab[i][j].numero_sprite = sprite_mur;
+							tab[i][j+1].numero_sprite = sprite_mur;
+							sprite_mur++;
+						}
+						else if (tab[i][j].numero_sprite != -1)
+							{
+								PA_CreateSprite(1, tab[i][j].numero_sprite, (void*)sprite_12_Sprite, OBJ_SIZE_32X16, 1, 7,16*j,(16*i)+32);
+							}
+						tab[i][j].value = 1;
+						tab[i][j+1].value = 2;
+						tab[i][j].type_sprite = 12;
+			}
+			else if (tab[i][j].value == 1 && tab[i][j+1].value == 3 && tab[i][j].type_sprite != 13)
+			{
+				if (tab[i][j].numero_sprite = -1)
+						{
+							PA_CreateSprite(1, sprite_mur, (void*)sprite_13_Sprite, OBJ_SIZE_32X16, 1, 8,16*j,(16*i)+32);
+							tab[i][j].numero_sprite = sprite_mur;
+							tab[i][j+1].numero_sprite = sprite_mur;
+							sprite_mur++;
+						}
+						else if (tab[i][j].numero_sprite != -1)
+							{
+								PA_CreateSprite(1, tab[i][j].numero_sprite, (void*)sprite_13_Sprite, OBJ_SIZE_32X16, 1, 8,16*j,(16*i)+32);
+							}
+						tab[i][j].value = 1;
+						tab[i][j+1].value = 3;
+						tab[i][j].type_sprite = 13;
+			}
+			else if (tab[i][j].value == 2 && tab[i][j+1].value == 0 && tab[i][j].type_sprite != 20)
+			{
+				if (tab[i][j].numero_sprite = -1)
+						{
+							PA_CreateSprite(1, sprite_mur, (void*)sprite_20_Sprite, OBJ_SIZE_32X16, 1, 9,16*j,(16*i)+32);
+							tab[i][j].numero_sprite = sprite_mur;
+							tab[i][j+1].numero_sprite = sprite_mur;
+							sprite_mur++;
+						}
+						else if (tab[i][j].numero_sprite != -1)
+							{
+								PA_CreateSprite(1, tab[i][j].numero_sprite, (void*)sprite_20_Sprite, OBJ_SIZE_32X16, 1, 9,16*j,(16*i)+32);
+							}
+						tab[i][j].value = 2;
+						tab[i][j+1].value = 0;
+						tab[i][j].type_sprite = 20;
+			}
+			else if (tab[i][j].value == 2 && tab[i][j+1].value == 1 && tab[i][j].type_sprite != 21)
+			{
+				if (tab[i][j].numero_sprite = -1)
+						{
+							PA_CreateSprite(1, sprite_mur, (void*)sprite_21_Sprite, OBJ_SIZE_32X16, 1, 10,16*j,(16*i)+32);
+							tab[i][j].numero_sprite = sprite_mur;
+							tab[i][j+1].numero_sprite = sprite_mur;
+							sprite_mur++;
+						}
+						else if (tab[i][j].numero_sprite != -1)
+							{
+								PA_CreateSprite(1, tab[i][j].numero_sprite, (void*)sprite_21_Sprite, OBJ_SIZE_32X16, 1, 10,16*j,(16*i)+32);
+							}
+						tab[i][j].value = 2;
+						tab[i][j+1].value = 1;
+						tab[i][j].type_sprite = 21;
+			}
+			else if (tab[i][j].value == 2 && tab[i][j+1].value == 2 && tab[i][j].type_sprite != 22)
+			{
+				if (tab[i][j].numero_sprite = -1)
+						{
+							PA_CreateSprite(1, sprite_mur, (void*)sprite_22_Sprite, OBJ_SIZE_32X16, 1, 11,16*j,(16*i)+32);
+							tab[i][j].numero_sprite = sprite_mur;
+							tab[i][j+1].numero_sprite = sprite_mur;
+							sprite_mur++;
+						}
+						else if (tab[i][j].numero_sprite != -1)
+							{
+								PA_CreateSprite(1, tab[i][j].numero_sprite, (void*)sprite_22_Sprite, OBJ_SIZE_32X16, 1, 11,16*j,(16*i)+32);
+							}
+						tab[i][j].value = 2;
+						tab[i][j+1].value = 2;
+						tab[i][j].type_sprite = 22;
+			}
+			else if (tab[i][j].value == 2 && tab[i][j+1].value == 3 && tab[i][j].type_sprite != 23)
+			{
+				if (tab[i][j].numero_sprite = -1)
+						{
+							PA_CreateSprite(1, sprite_mur, (void*)sprite_23_Sprite, OBJ_SIZE_32X16, 1, 12,16*j,(16*i)+32);
+							tab[i][j].numero_sprite = sprite_mur;
+							tab[i][j+1].numero_sprite = sprite_mur;
+							sprite_mur++;
+						}
+						else if (tab[i][j].numero_sprite != -1)
+							{
+								PA_CreateSprite(1, tab[i][j].numero_sprite, (void*)sprite_23_Sprite, OBJ_SIZE_32X16, 1, 12,16*j,(16*i)+32);
+							}
+						tab[i][j].value = 2;
+						tab[i][j+1].value = 3;
+						tab[i][j].type_sprite = 23;
+			}
+			else if (tab[i][j].value == 3 && tab[i][j+1].value == 0 && tab[i][j].type_sprite != 30)
+			{
+				if (tab[i][j].numero_sprite = -1)
+						{
+							PA_CreateSprite(1, sprite_mur, (void*)sprite_30_Sprite, OBJ_SIZE_32X16, 1, 13,16*j,(16*i)+32);
+							tab[i][j].numero_sprite = sprite_mur;
+							tab[i][j+1].numero_sprite = sprite_mur;
+							sprite_mur++;
+						}
+						else if (tab[i][j].numero_sprite != -1)
+							{
+								PA_CreateSprite(1, tab[i][j].numero_sprite, (void*)sprite_30_Sprite, OBJ_SIZE_32X16, 1, 13,16*j,(16*i)+32);
+							}
+						tab[i][j].value = 3;
+						tab[i][j+1].value = 0;
+						tab[i][j].type_sprite = 30;
+			}
+			else if (tab[i][j].value == 3 && tab[i][j+1].value == 1 && tab[i][j].type_sprite != 31)
+			{
+				if (tab[i][j].numero_sprite = -1)
+						{
+							PA_CreateSprite(1, sprite_mur, (void*)sprite_31_Sprite, OBJ_SIZE_32X16, 1, 14,16*j,(16*i)+32);
+							tab[i][j].numero_sprite = sprite_mur;
+							tab[i][j+1].numero_sprite = sprite_mur;
+							sprite_mur++;
+						}
+						else if (tab[i][j].numero_sprite != -1)
+							{
+								PA_CreateSprite(1, tab[i][j].numero_sprite, (void*)sprite_31_Sprite, OBJ_SIZE_32X16, 1, 14,16*j,(16*i)+32);
+							}
+						tab[i][j].value = 3;
+						tab[i][j+1].value = 1;
+						tab[i][j].type_sprite = 31;
+			}
+			else if (tab[i][j].value == 3 && tab[i][j+1].value == 2 && tab[i][j].type_sprite != 32)
+			{
+				if (tab[i][j].numero_sprite = -1)
+						{
+							PA_CreateSprite(1, sprite_mur, (void*)sprite_32_Sprite, OBJ_SIZE_32X16, 1, 15,16*j,(16*i)+32);
+							tab[i][j].numero_sprite = sprite_mur;
+							tab[i][j+1].numero_sprite = sprite_mur;
+							sprite_mur++;
+						}
+						else if (tab[i][j].numero_sprite != -1)
+							{
+								PA_CreateSprite(1, tab[i][j].numero_sprite, (void*)sprite_32_Sprite, OBJ_SIZE_32X16, 1, 15,16*j,(16*i)+32);
+							}
+						tab[i][j].value = 3;
+						tab[i][j+1].value = 2;
+						tab[i][j].type_sprite = 32;
+			}
 
         }
 		
+		
+		/* Pour écran du bas */
+		
 		for (i = 10 ; i < 22 ; i++ )
 		{
-			if (tab[j][i].value == 0 && tab[j+1][i].value == 0 && tab[j][i].type_sprite != 00)
+			if (tab[i][j].value == 0 && tab[i][j+1].value == 0 && tab[i][j].type_sprite != 00)
 				{
-					if (tab[j][i].numero_sprite = -1)
+					if (tab[i][j].numero_sprite = -1)
 						{
 							PA_CreateSprite(0, sprite_mur, (void*)sprite_00_Sprite, OBJ_SIZE_32X16, 1, 1,16*j,16*i);
-							tab[j][i].numero_sprite = sprite_mur;
-							tab[j+1][i].numero_sprite = sprite_mur;
+							tab[i][j].numero_sprite = sprite_mur;
+							tab[i][j+1].numero_sprite = sprite_mur;
 							sprite_mur++;
 						}
-						else if (tab[j][i].numero_sprite != -1)
+						else if (tab[i][j].numero_sprite != -1)
 							{
-								PA_CreateSprite(0, tab[j][i].numero_sprite, (void*)sprite_00_Sprite, OBJ_SIZE_32X16, 1, 1,16*j,16*i);
+								PA_CreateSprite(0, tab[i][j].numero_sprite, (void*)sprite_00_Sprite, OBJ_SIZE_32X16, 1, 1,16*j,16*i);
 							}
-						tab[j][i].value = 0;
-						tab[j+1][i].value = 0;
-						tab[j][i].type_sprite = 00;
+						tab[i][j].value = 0;
+						tab[i][j+1].value = 0;
+						tab[i][j].type_sprite = 00;
 				}
-			else if (tab[j][i].value == 0 && tab[j+1][i].value == 1 && tab[j][i].type_sprite != 01)
+			else if (tab[i][j].value == 0 && tab[i][j+1].value == 1 && tab[i][j].type_sprite != 01)
 				{
-					if (tab[j][i].numero_sprite = -1)
+					if (tab[i][j].numero_sprite = -1)
 						{
 							PA_CreateSprite(0, sprite_mur, (void*)sprite_01_Sprite, OBJ_SIZE_32X16, 1, 2,16*j,16*i);
-							tab[j][i].numero_sprite = sprite_mur;
-							tab[j+1][i].numero_sprite = sprite_mur;
+							tab[i][j].numero_sprite = sprite_mur;
+							tab[i][j+1].numero_sprite = sprite_mur;
 							sprite_mur++;
 						}
-						else if (tab[j][i].numero_sprite != -1)
+						else if (tab[i][j].numero_sprite != -1)
 							{
-								PA_CreateSprite(0, tab[j][i].numero_sprite, (void*)sprite_01_Sprite, OBJ_SIZE_32X16, 1, 2,16*j,16*i);
+								PA_CreateSprite(0, tab[i][j].numero_sprite, (void*)sprite_01_Sprite, OBJ_SIZE_32X16, 1, 2,16*j,16*i);
 							}
-						tab[j][i].value = 0;
-						tab[j+1][i].value = 1;
-						tab[j][i].type_sprite = 01;
+						tab[i][j].value = 0;
+						tab[i][j+1].value = 1;
+						tab[i][j].type_sprite = 01;
 				}
-			else if (tab[j][i].value == 0 && tab[j+1][i].value == 2 && tab[j][i].type_sprite != 02)
+			else if (tab[i][j].value == 0 && tab[i][j+1].value == 2 && tab[i][j].type_sprite != 02)
 			{
-				if (tab[j][i].numero_sprite = -1)
+				if (tab[i][j].numero_sprite = -1)
 						{
 							PA_CreateSprite(0, sprite_mur, (void*)sprite_02_Sprite, OBJ_SIZE_32X16, 1, 3,16*j,16*i);
-							tab[j][i].numero_sprite = sprite_mur;
-							tab[j+1][i].numero_sprite = sprite_mur;
+							tab[i][j].numero_sprite = sprite_mur;
+							tab[i][j+1].numero_sprite = sprite_mur;
 							sprite_mur++;
 						}
-						else if (tab[j][i].numero_sprite != -1)
+						else if (tab[i][j].numero_sprite != -1)
 							{
-								PA_CreateSprite(0, tab[j][i].numero_sprite, (void*)sprite_02_Sprite, OBJ_SIZE_32X16, 1, 3,16*j,16*i);
+								PA_CreateSprite(0, tab[i][j].numero_sprite, (void*)sprite_02_Sprite, OBJ_SIZE_32X16, 1, 3,16*j,16*i);
 							}
-						tab[j][i].value = 0;
-						tab[j+1][i].value = 2;
-						tab[j][i].type_sprite = 02;
+						tab[i][j].value = 0;
+						tab[i][j+1].value = 2;
+						tab[i][j].type_sprite = 02;
 			}
-			else if (tab[j][i].value == 0 && tab[j+1][i].value == 3 && tab[j][i].type_sprite != 03)
+			else if (tab[i][j].value == 0 && tab[i][j+1].value == 3 && tab[i][j].type_sprite != 03)
 			{
-				if (tab[j][i].numero_sprite = -1)
+				if (tab[i][j].numero_sprite = -1)
 						{
 							PA_CreateSprite(0, sprite_mur, (void*)sprite_03_Sprite, OBJ_SIZE_32X16, 1, 4,16*j,16*i);
-							tab[j][i].numero_sprite = sprite_mur;
-							tab[j+1][i].numero_sprite = sprite_mur;
+							tab[i][j].numero_sprite = sprite_mur;
+							tab[i][j+1].numero_sprite = sprite_mur;
 							sprite_mur++;
 						}
-						else if (tab[j][i].numero_sprite != -1)
+						else if (tab[i][j].numero_sprite != -1)
 							{
-								PA_CreateSprite(0, tab[j][i].numero_sprite, (void*)sprite_03_Sprite, OBJ_SIZE_32X16, 1, 4,16*j,16*i);
+								PA_CreateSprite(0, tab[i][j].numero_sprite, (void*)sprite_03_Sprite, OBJ_SIZE_32X16, 1, 4,16*j,16*i);
 							}
-						tab[j][i].value = 0;
-						tab[j+1][i].value = 3;
-						tab[j][i].type_sprite = 03;
+						tab[i][j].value = 0;
+						tab[i][j+1].value = 3;
+						tab[i][j].type_sprite = 03;
 			}
-			else if (tab[j][i].value == 1 && tab[j+1][i].value == 0 && tab[j][i].type_sprite != 10)
+			else if (tab[i][j].value == 1 && tab[i][j+1].value == 0 && tab[i][j].type_sprite != 10)
 			{
-				if (tab[j][i].numero_sprite = -1)
+				if (tab[i][j].numero_sprite = -1)
 						{
 							PA_CreateSprite(0, sprite_mur, (void*)sprite_10_Sprite, OBJ_SIZE_32X16, 1, 5,16*j,16*i);
-							tab[j][i].numero_sprite = sprite_mur;
-							tab[j+1][i].numero_sprite = sprite_mur;
+							tab[i][j].numero_sprite = sprite_mur;
+							tab[i][j+1].numero_sprite = sprite_mur;
 							sprite_mur++;
 						}
-						else if (tab[j][i].numero_sprite != -1)
+						else if (tab[i][j].numero_sprite != -1)
 							{
-								PA_CreateSprite(0, tab[j][i].numero_sprite, (void*)sprite_10_Sprite, OBJ_SIZE_32X16, 1, 5,16*j,16*i);
+								PA_CreateSprite(0, tab[i][j].numero_sprite, (void*)sprite_10_Sprite, OBJ_SIZE_32X16, 1, 5,16*j,16*i);
 							}
-						tab[j][i].value = 1;
-						tab[j+1][i].value = 0;
-						tab[j][i].type_sprite = 10;
+						tab[i][j].value = 1;
+						tab[i][j+1].value = 0;
+						tab[i][j].type_sprite = 10;
 			}
-			else if (tab[j][i].value == 1 && tab[j+1][i].value == 1 && tab[j][i].type_sprite != 11)
+			else if (tab[i][j].value == 1 && tab[i][j+1].value == 1 && tab[i][j].type_sprite != 11)
 			{
-				if (tab[j][i].numero_sprite = -1)
+				if (tab[i][j].numero_sprite = -1)
 						{
 							PA_CreateSprite(0, sprite_mur, (void*)sprite_11_Sprite, OBJ_SIZE_32X16, 1, 6,16*j,16*i);
-							tab[j][i].numero_sprite = sprite_mur;
-							tab[j+1][i].numero_sprite = sprite_mur;
+							tab[i][j].numero_sprite = sprite_mur;
+							tab[i][j+1].numero_sprite = sprite_mur;
 							sprite_mur++;
 						}
-						else if (tab[j][i].numero_sprite != -1)
+						else if (tab[i][j].numero_sprite != -1)
 							{
-								PA_CreateSprite(0, tab[j][i].numero_sprite, (void*)sprite_11_Sprite, OBJ_SIZE_32X16, 1, 6,16*j,16*i);
+								PA_CreateSprite(0, tab[i][j].numero_sprite, (void*)sprite_11_Sprite, OBJ_SIZE_32X16, 1, 6,16*j,16*i);
 							}
-						tab[j][i].value = 1;
-						tab[j+1][i].value = 1;
-						tab[j][i].type_sprite = 11;
+						tab[i][j].value = 1;
+						tab[i][j+1].value = 1;
+						tab[i][j].type_sprite = 11;
 			}
-			else if (tab[j][i].value == 1 && tab[j+1][i].value == 2 && tab[j][i].type_sprite != 12)
+			else if (tab[i][j].value == 1 && tab[i][j+1].value == 2 && tab[i][j].type_sprite != 12)
 			{
-				if (tab[j][i].numero_sprite = -1)
+				if (tab[i][j].numero_sprite = -1)
 						{
 							PA_CreateSprite(0, sprite_mur, (void*)sprite_12_Sprite, OBJ_SIZE_32X16, 1, 7,16*j,16*i);
-							tab[j][i].numero_sprite = sprite_mur;
-							tab[j+1][i].numero_sprite = sprite_mur;
+							tab[i][j].numero_sprite = sprite_mur;
+							tab[i][j+1].numero_sprite = sprite_mur;
 							sprite_mur++;
 						}
-						else if (tab[j][i].numero_sprite != -1)
+						else if (tab[i][j].numero_sprite != -1)
 							{
-								PA_CreateSprite(0, tab[j][i].numero_sprite, (void*)sprite_12_Sprite, OBJ_SIZE_32X16, 1, 7,16*j,16*i);
+								PA_CreateSprite(0, tab[i][j].numero_sprite, (void*)sprite_12_Sprite, OBJ_SIZE_32X16, 1, 7,16*j,16*i);
 							}
-						tab[j][i].value = 1;
-						tab[j+1][i].value = 2;
-						tab[j][i].type_sprite = 12;
+						tab[i][j].value = 1;
+						tab[i][j+1].value = 2;
+						tab[i][j].type_sprite = 12;
 			}
-			else if (tab[j][i].value == 1 && tab[j+1][i].value == 3 && tab[j][i].type_sprite != 13)
+			else if (tab[i][j].value == 1 && tab[i][j+1].value == 3 && tab[i][j].type_sprite != 13)
 			{
-				if (tab[j][i].numero_sprite = -1)
+				if (tab[i][j].numero_sprite = -1)
 						{
 							PA_CreateSprite(0, sprite_mur, (void*)sprite_13_Sprite, OBJ_SIZE_32X16, 1, 8,16*j,16*i);
-							tab[j][i].numero_sprite = sprite_mur;
-							tab[j+1][i].numero_sprite = sprite_mur;
+							tab[i][j].numero_sprite = sprite_mur;
+							tab[i][j+1].numero_sprite = sprite_mur;
 							sprite_mur++;
 						}
-						else if (tab[j][i].numero_sprite != -1)
+						else if (tab[i][j].numero_sprite != -1)
 							{
-								PA_CreateSprite(0, tab[j][i].numero_sprite, (void*)sprite_13_Sprite, OBJ_SIZE_32X16, 1, 8,16*j,16*i);
+								PA_CreateSprite(0, tab[i][j].numero_sprite, (void*)sprite_13_Sprite, OBJ_SIZE_32X16, 1, 8,16*j,16*i);
 							}
-						tab[j][i].value = 1;
-						tab[j+1][i].value = 3;
-						tab[j][i].type_sprite = 13;
+						tab[i][j].value = 1;
+						tab[i][j+1].value = 3;
+						tab[i][j].type_sprite = 13;
 			}
-			else if (tab[j][i].value == 2 && tab[j+1][i].value == 0 && tab[j][i].type_sprite != 20)
+			else if (tab[i][j].value == 2 && tab[i][j+1].value == 0 && tab[i][j].type_sprite != 20)
 			{
-				if (tab[j][i].numero_sprite = -1)
+				if (tab[i][j].numero_sprite = -1)
 						{
 							PA_CreateSprite(0, sprite_mur, (void*)sprite_20_Sprite, OBJ_SIZE_32X16, 1, 9,16*j,16*i);
-							tab[j][i].numero_sprite = sprite_mur;
-							tab[j+1][i].numero_sprite = sprite_mur;
+							tab[i][j].numero_sprite = sprite_mur;
+							tab[i][j+1].numero_sprite = sprite_mur;
 							sprite_mur++;
 						}
-						else if (tab[j][i].numero_sprite != -1)
+						else if (tab[i][j].numero_sprite != -1)
 							{
-								PA_CreateSprite(0, tab[j][i].numero_sprite, (void*)sprite_20_Sprite, OBJ_SIZE_32X16, 1, 9,16*j,16*i);
+								PA_CreateSprite(0, tab[i][j].numero_sprite, (void*)sprite_20_Sprite, OBJ_SIZE_32X16, 1, 9,16*j,16*i);
 							}
-						tab[j][i].value = 2;
-						tab[j+1][i].value = 0;
-						tab[j][i].type_sprite = 20;
+						tab[i][j].value = 2;
+						tab[i][j+1].value = 0;
+						tab[i][j].type_sprite = 20;
 			}
-			else if (tab[j][i].value == 2 && tab[j+1][i].value == 1 && tab[j][i].type_sprite != 21)
+			else if (tab[i][j].value == 2 && tab[i][j+1].value == 1 && tab[i][j].type_sprite != 21)
 			{
-				if (tab[j][i].numero_sprite = -1)
+				if (tab[i][j].numero_sprite = -1)
 						{
 							PA_CreateSprite(0, sprite_mur, (void*)sprite_21_Sprite, OBJ_SIZE_32X16, 1, 10,16*j,16*i);
-							tab[j][i].numero_sprite = sprite_mur;
-							tab[j+1][i].numero_sprite = sprite_mur;
+							tab[i][j].numero_sprite = sprite_mur;
+							tab[i][j+1].numero_sprite = sprite_mur;
 							sprite_mur++;
 						}
-						else if (tab[j][i].numero_sprite != -1)
+						else if (tab[i][j].numero_sprite != -1)
 							{
-								PA_CreateSprite(0, tab[j][i].numero_sprite, (void*)sprite_21_Sprite, OBJ_SIZE_32X16, 1, 10,16*j,16*i);
+								PA_CreateSprite(0, tab[i][j].numero_sprite, (void*)sprite_21_Sprite, OBJ_SIZE_32X16, 1, 10,16*j,16*i);
 							}
-						tab[j][i].value = 2;
-						tab[j+1][i].value = 1;
-						tab[j][i].type_sprite = 21;
+						tab[i][j].value = 2;
+						tab[i][j+1].value = 1;
+						tab[i][j].type_sprite = 21;
 			}
-			else if (tab[j][i].value == 2 && tab[j+1][i].value == 2 && tab[j][i].type_sprite != 22)
+			else if (tab[i][j].value == 2 && tab[i][j+1].value == 2 && tab[i][j].type_sprite != 22)
 			{
-				if (tab[j][i].numero_sprite = -1)
+				if (tab[i][j].numero_sprite = -1)
 						{
 							PA_CreateSprite(0, sprite_mur, (void*)sprite_22_Sprite, OBJ_SIZE_32X16, 1, 11,16*j,16*i);
-							tab[j][i].numero_sprite = sprite_mur;
-							tab[j+1][i].numero_sprite = sprite_mur;
+							tab[i][j].numero_sprite = sprite_mur;
+							tab[i][j+1].numero_sprite = sprite_mur;
 							sprite_mur++;
 						}
-						else if (tab[j][i].numero_sprite != -1)
+						else if (tab[i][j].numero_sprite != -1)
 							{
-								PA_CreateSprite(0, tab[j][i].numero_sprite, (void*)sprite_22_Sprite, OBJ_SIZE_32X16, 1, 11,16*j,16*i);
+								PA_CreateSprite(0, tab[i][j].numero_sprite, (void*)sprite_22_Sprite, OBJ_SIZE_32X16, 1, 11,16*j,16*i);
 							}
-						tab[j][i].value = 2;
-						tab[j+1][i].value = 2;
-						tab[j][i].type_sprite = 22;
+						tab[i][j].value = 2;
+						tab[i][j+1].value = 2;
+						tab[i][j].type_sprite = 22;
 			}
-			else if (tab[j][i].value == 2 && tab[j+1][i].value == 3 && tab[j][i].type_sprite != 23)
+			else if (tab[i][j].value == 2 && tab[i][j+1].value == 3 && tab[i][j].type_sprite != 23)
 			{
-				if (tab[j][i].numero_sprite = -1)
+				if (tab[i][j].numero_sprite = -1)
 						{
 							PA_CreateSprite(0, sprite_mur, (void*)sprite_23_Sprite, OBJ_SIZE_32X16, 1, 12,16*j,16*i);
-							tab[j][i].numero_sprite = sprite_mur;
-							tab[j+1][i].numero_sprite = sprite_mur;
+							tab[i][j].numero_sprite = sprite_mur;
+							tab[i][j+1].numero_sprite = sprite_mur;
 							sprite_mur++;
 						}
-						else if (tab[j][i].numero_sprite != -1)
+						else if (tab[i][j].numero_sprite != -1)
 							{
-								PA_CreateSprite(0, tab[j][i].numero_sprite, (void*)sprite_23_Sprite, OBJ_SIZE_32X16, 1, 12,16*j,16*i);
+								PA_CreateSprite(0, tab[i][j].numero_sprite, (void*)sprite_23_Sprite, OBJ_SIZE_32X16, 1, 12,16*j,16*i);
 							}
-						tab[j][i].value = 2;
-						tab[j+1][i].value = 3;
-						tab[j][i].type_sprite = 23;
+						tab[i][j].value = 2;
+						tab[i][j+1].value = 3;
+						tab[i][j].type_sprite = 23;
 			}
-			else if (tab[j][i].value == 3 && tab[j+1][i].value == 0 && tab[j][i].type_sprite != 30)
+			else if (tab[i][j].value == 3 && tab[i][j+1].value == 0 && tab[i][j].type_sprite != 30)
 			{
-				if (tab[j][i].numero_sprite = -1)
+				if (tab[i][j].numero_sprite = -1)
 						{
 							PA_CreateSprite(0, sprite_mur, (void*)sprite_30_Sprite, OBJ_SIZE_32X16, 1, 13,16*j,16*i);
-							tab[j][i].numero_sprite = sprite_mur;
-							tab[j+1][i].numero_sprite = sprite_mur;
+							tab[i][j].numero_sprite = sprite_mur;
+							tab[i][j+1].numero_sprite = sprite_mur;
 							sprite_mur++;
 						}
-						else if (tab[j][i].numero_sprite != -1)
+						else if (tab[i][j].numero_sprite != -1)
 							{
-								PA_CreateSprite(0, tab[j][i].numero_sprite, (void*)sprite_30_Sprite, OBJ_SIZE_32X16, 1, 13,16*j,16*i);
+								PA_CreateSprite(0, tab[i][j].numero_sprite, (void*)sprite_30_Sprite, OBJ_SIZE_32X16, 1, 13,16*j,16*i);
 							}
-						tab[j][i].value = 3;
-						tab[j+1][i].value = 0;
-						tab[j][i].type_sprite = 30;
+						tab[i][j].value = 3;
+						tab[i][j+1].value = 0;
+						tab[i][j].type_sprite = 30;
 			}
-			else if (tab[j][i].value == 3 && tab[j+1][i].value == 1 && tab[j][i].type_sprite != 31)
+			else if (tab[i][j].value == 3 && tab[i][j+1].value == 1 && tab[i][j].type_sprite != 31)
 			{
-				if (tab[j][i].numero_sprite = -1)
+				if (tab[i][j].numero_sprite = -1)
 						{
 							PA_CreateSprite(0, sprite_mur, (void*)sprite_31_Sprite, OBJ_SIZE_32X16, 1, 14,16*j,16*i);
-							tab[j][i].numero_sprite = sprite_mur;
-							tab[j+1][i].numero_sprite = sprite_mur;
+							tab[i][j].numero_sprite = sprite_mur;
+							tab[i][j+1].numero_sprite = sprite_mur;
 							sprite_mur++;
 						}
-						else if (tab[j][i].numero_sprite != -1)
+						else if (tab[i][j].numero_sprite != -1)
 							{
-								PA_CreateSprite(0, tab[j][i].numero_sprite, (void*)sprite_31_Sprite, OBJ_SIZE_32X16, 1, 14,16*j,16*i);
+								PA_CreateSprite(0, tab[i][j].numero_sprite, (void*)sprite_31_Sprite, OBJ_SIZE_32X16, 1, 14,16*j,16*i);
 							}
-						tab[j][i].value = 3;
-						tab[j+1][i].value = 1;
-						tab[j][i].type_sprite = 31;
+						tab[i][j].value = 3;
+						tab[i][j+1].value = 1;
+						tab[i][j].type_sprite = 31;
 			}
-			else if (tab[j][i].value == 3 && tab[j+1][i].value == 2 && tab[j][i].type_sprite != 32)
+			else if (tab[i][j].value == 3 && tab[i][j+1].value == 2 && tab[i][j].type_sprite != 32)
 			{
-				if (tab[j][i].numero_sprite = -1)
+				if (tab[i][j].numero_sprite = -1)
 						{
 							PA_CreateSprite(0, sprite_mur, (void*)sprite_32_Sprite, OBJ_SIZE_32X16, 1, 15,16*j,16*i);
-							tab[j][i].numero_sprite = sprite_mur;
-							tab[j+1][i].numero_sprite = sprite_mur;
+							tab[i][j].numero_sprite = sprite_mur;
+							tab[i][j+1].numero_sprite = sprite_mur;
 							sprite_mur++;
 						}
-						else if (tab[j][i].numero_sprite != -1)
+						else if (tab[i][j].numero_sprite != -1)
 							{
-								PA_CreateSprite(0, tab[j][i].numero_sprite, (void*)sprite_32_Sprite, OBJ_SIZE_32X16, 1, 15,16*j,16*i);
+								PA_CreateSprite(0, tab[i][j].numero_sprite, (void*)sprite_32_Sprite, OBJ_SIZE_32X16, 1, 15,16*j,16*i);
 							}
-						tab[j][i].value = 3;
-						tab[j+1][i].value = 2;
-						tab[j][i].type_sprite = 32;
+						tab[i][j].value = 3;
+						tab[i][j+1].value = 2;
+						tab[i][j].type_sprite = 32;
 			}
 		}
 	}
@@ -575,13 +799,13 @@ void deplacement_pacman()
 		while(1){ // Main loop
 			
 			if (Pad.Held.Right) PA_SetSpriteAnim(0, 0, 0); // screen, sprite, frame	
-			if (Pad.Held.Right) PA_SetSpriteAnim(1, 0, 0); // screen, sprite, frame
-			if (Pad.Held.Up) PA_SetSpriteAnim(0, 0, 1); // screen, sprite, frame
-			if (Pad.Held.Up) PA_SetSpriteAnim(1, 0, 1); // screen, sprite, frame
-			if (Pad.Held.Down) PA_SetSpriteAnim(0, 0, 2); // screen, sprite, frame
-			if (Pad.Held.Down) PA_SetSpriteAnim(1, 0, 2); // screen, sprite, frame
-			if (Pad.Held.Left) PA_SetSpriteAnim(0, 0, 3); // screen, sprite, frame
-			if (Pad.Held.Left) PA_SetSpriteAnim(1, 0, 3); // screen, sprite, frame
+			if (Pad.Held.Right) PA_SetSpriteAnim(1, 0, 0); 
+			if (Pad.Held.Up) PA_SetSpriteAnim(0, 0, 1); 
+			if (Pad.Held.Up) PA_SetSpriteAnim(1, 0, 1); 
+			if (Pad.Held.Down) PA_SetSpriteAnim(0, 0, 2);
+			if (Pad.Held.Down) PA_SetSpriteAnim(1, 0, 2);
+			if (Pad.Held.Left) PA_SetSpriteAnim(0, 0, 3);
+			if (Pad.Held.Left) PA_SetSpriteAnim(1, 0, 3);
 				
 			
 			// Update the position according to the keypad...
