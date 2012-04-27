@@ -84,7 +84,11 @@ void pause();
 
 void reboot();
 
+void creation_pacman ();
+
 void deplacement_pacman();
+
+void maj_coord_pacman ();
 
 
 #endif // PROCEDURES_H_INCLUDED

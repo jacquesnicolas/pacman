@@ -10,6 +10,8 @@
  */
 #include "procedures.h"
 
+#define rayon_pacman 8
+
 tabInfo tab[22][16];
 
 // Grille mesGrilles;
@@ -41,15 +43,13 @@ int mesGrilles[22][16] = {
 
 
 
-// /**
- // * Variable globale de type balleInfo (Structure)
- // *
- // * Tableau de structure utilisé pour les balles.
- // * Taille NBBALLES déclaré en #define
- // */
-// balleInfo balle[NBBALLES];
-
-// u8 balle_en_cours;
+/**
+ * Variable globale de type balleInfo (Structure)
+ *
+ * Tableau de structure utilisé pour les balles.
+ * Taille NBBALLES déclaré en #define
+ */
+pacmanInfo pacman;
 
 
 
@@ -791,51 +791,272 @@ void reboot ()
     initialisation();
 }
 
-void deplacement_pacman()
+
+/**
+ * @fn void creation_pacman ()
+ * @brief Fonction de création des pacmans.
+ */
+void creation_pacman ()
 {
-	
-	s32 x = 16*7;    s32 y = 16*16; // sprite position...
-	
-	/*!< Déplacement du pacman >*/
-		PA_LoadDefaultText(0,0);
-	
-		PA_LoadSpritePal(0, // Screen
-						0, // Palette number
-						(void*)pacman_Pal);	// Palette name
+    //sprite_balles = 118;
+
+    //for (compteur = 0; compteur < 30; compteur ++) PA_DeleteSprite(0, compteur);
+
+	// for(compteur = 0; compteur < nb_balles; compteur++)
+	// {
+		/*!< On met des coordonnées aléatoires dans la structure pacman. */
+        pacman.x = 64-16;	//(PA_RandMinMax(34,232));
+		pacman.y = 64;		//(PA_RandMinMax(34,158));
+
+
+		/*!< On donne une vitesse de départ à chaque pacman. */
+		do
+		{
+            pacman.vx = 0;//PA_RandMinMax(-1,1);
+            pacman.vy = 0;//PA_RandMinMax(-2,2);
+		} while (pacman.vx != 0 && pacman.vy != 0);
+
+		/*!< On sauvegarde le numéro de sprite attribué. */
+		pacman.numero_sprite = sprite_pacman;
+
+		/*!< Création du sprite. */
+		PA_DualCreateSprite(sprite_pacman,(void*)pacman_Sprite, OBJ_SIZE_16X16,1, 0, pacman.x, pacman.y); // No need to choose the screen
+	// }
+
+
+    /*!< BOUCLE DE CONTRÔLE */
+    //PA_InitText(1,1);
+    /*
+    for(compteur = 0; compteur < nb_balles; compteur++)
+    {
+        PA_OutputText(1,1,compteur,"%d  ", pacman.x);
+        PA_OutputText(1,5,compteur,"%d  ", pacman.y);
+        PA_OutputText(1,9,compteur,"%d  ", pacman.vx);
+        PA_OutputText(1,15,compteur,"%d  ", pacman.vy);
+        PA_OutputText(1,20,compteur,"%d  ", pacman.numero_sprite);
+    }
+    */
+}
+
+
+
+/**
+ * @fn void maj_coord_pacman ()
+ * @brief Fonction qui met à jour les coordonnées de la pacman suivant sa vitesse.
+ *
+ * La mise à jour des nouvelles coordonnées de position se fait en aditionnant la position actuelle et la vitesse suivant les axes.
+ */
+void maj_coord_pacman ()
+{
+	pacman.x += pacman.vx;
+    pacman.y += pacman.vy;
+}
+
+
+
+
+
+/**
+ * @fn void gestion_collision_murs ()
+ * @brief Fonction qui gère la collision entre une balle et un mur.
+ *
+ * COLLISION AXE DES ABCISSES
+ * Si la coordonnée en x de la balle i est inférieure ou égale à 7 (on prend en compte la taille de la bordure) et si sa vitesse en x
+ * est inférieure à 0 (c'est à dire que la balle de déplace vers la gauche) alors on inverse siplement sa vitesse en x.
+ * Idem pour l'autre côté, en tenant compte de la bordure et en vérifiant que la vitesse en x est positive.
+ *
+ * COLLISION AXE DES ORDONNEES
+ * Même raisonnement.
+ */
+void gestion_collision_murs ()
+{
+    int coef = 0;
+
+    /*!< On cherche l'orientation suivant l'axe des X */
+    if (balle[balle_en_cours].vx > 0)
+    {
+        coef = rayon_pacman;
+    }
+    else if (balle[balle_en_cours].vx < 0)
+    {
+        coef = -rayon_pacman;
+    }
+
+    int test_x = (balle[balle_en_cours].x + balle[balle_en_cours].vx + coef) / 16;
+
+
+    /*!< On cherche l'orientation suivant l'axe des Y */
+    if (balle[balle_en_cours].vy > 0)
+    {
+        coef = rayon_pacman;
+    }
+    else if (balle[balle_en_cours].vy < 0)
+    {
+        coef = -rayon_pacman;
+    }
+
+    int test_y = (balle[balle_en_cours].y + balle[balle_en_cours].vy + coef) / 16;
+
+    /*!< Contenu de la case sur laquelle sera la balle lors du prochain déplacement */
+    //int maze_balle_x = tab[test_x][balle[balle_en_cours].x/16].value;
+    //int maze_balle_y = tab[balle[balle_en_cours].y/16][test_y].value;
+
+    /*!< Traitement EN COURS */
+    if (tab[test_x][test_y].value == 1)
+    {
+        if (tab[test_x][test_y].type_mur == 1)
+        {
+            balle[balle_en_cours].vx = -balle[balle_en_cours].vx;
+        }
+        else if (tab[test_x][test_y].type_mur == 0)
+        {
+            balle[balle_en_cours].vy = -balle[balle_en_cours].vy;
+        }
+
+
+       
+    }
+/*
+    !< Partie collision EN COURS
+    if ((tab[test_x][test_y].flag == 1) || (tab[balle[balle_en_cours].x][balle[balle_en_cours].y].flag == 1))
+    {
+        if (vertical == 1)
+            collision = test_y;
+        else if (vertical == 0)
+            collision = test_x;
+    }
+    else collision = 0;
+*/
+}
+
+
+
+
+
+
+
+
+
+void deplacement_pacman()
+{	
+	if (Pad.Held.Right)
+	{
+		PA_SetSpriteAnim(0, 0, 0); // screen, sprite, frame
+		PA_SetSpriteAnim(1, 0, 0); 
 		
-		//Create the sprite
-		PA_DualCreateSprite(0,(void*)pacman_Sprite, OBJ_SIZE_16X16,1, 0, 64-16, 64); // No need to choose the screen
-		
-		
-		while(1){ // Main loop
-			
-			if (Pad.Held.Right) PA_SetSpriteAnim(0, 0, 0); // screen, sprite, frame	
-			if (Pad.Held.Right) PA_SetSpriteAnim(1, 0, 0); 
-			if (Pad.Held.Up) PA_SetSpriteAnim(0, 0, 1); 
-			if (Pad.Held.Up) PA_SetSpriteAnim(1, 0, 1); 
-			if (Pad.Held.Down) PA_SetSpriteAnim(0, 0, 2);
-			if (Pad.Held.Down) PA_SetSpriteAnim(1, 0, 2);
-			if (Pad.Held.Left) PA_SetSpriteAnim(0, 0, 3);
-			if (Pad.Held.Left) PA_SetSpriteAnim(1, 0, 3);
-				
-			
-			// Update the position according to the keypad...
-			x += Pad.Held.Right - Pad.Held.Left;
-			y += Pad.Held.Down - Pad.Held.Up;
-			
-			// Set the sprite's position
-			PA_DualSetSpriteXY(0, // sprite
-							   x, // x position
-							   y); // y...
-						   
-			PA_WaitForVBL();
+		if (pacman.vx == 0 && pacman.vy == 0)
+		{
+			pacman.vx = 2;
 		}
+		else if (pacman.vx < 0)
+		{
+			pacman.vx = -pacman.vx;
+			pacman.vy = 0;
+		}
+		else if (pacman.vx > 0) {}
+		else if (pacman.vy > 0)
+		{
+			pacman.vx = pacman.vy;
+			pacman.vy = 0;
+		}
+		else if (pacman.vy < 0)
+		{
+			pacman.vx = -pacman.vy;
+			pacman.vy = 0;
+		}
+	}
+	else if (Pad.Held.Left)
+	{
+		PA_SetSpriteAnim(0, 0, 3);
+		PA_SetSpriteAnim(1, 0, 3);
+		
+		if (pacman.vx == 0 && pacman.vy == 0)
+		{
+			pacman.vx = -2;
+		}
+		else if (pacman.vx < 0) {}
+		else if (pacman.vx > 0)
+		{
+			pacman.vx = -pacman.vx;
+			pacman.vy = 0;
+		}
+		else if (pacman.vy > 0)
+		{
+			pacman.vx = pacman.vy;
+			pacman.vy = 0;
+		}
+		else if (pacman.vy < 0)
+		{
+			pacman.vx = -pacman.vy;
+			pacman.vy = 0;
+		}
+	}
+	else if (Pad.Held.Up)
+	{
+		PA_SetSpriteAnim(0, 0, 1); 
+		PA_SetSpriteAnim(1, 0, 1);
+		
+		if (pacman.vx == 0 && pacman.vy == 0)
+		{
+			pacman.vy = 2;
+		}
+		else if (pacman.vx < 0)
+		{
+			pacman.vy = -pacman.vx;
+			pacman.vx = 0;
+		}
+		else if (pacman.vx > 0)
+		{
+			pacman.vy = -pacman.vx;
+			pacman.vx = 0;
+		}
+		else if (pacman.vy > 0)
+		{
+			pacman.vy = -pacman.vy;
+			pacman.vx = 0;
+		}
+		else if (pacman.vy < 0) {}
+		
+	}
+	else if (Pad.Held.Down)
+	{
+		PA_SetSpriteAnim(0, 0, 2);
+		PA_SetSpriteAnim(1, 0, 2);
+		
+		if (pacman.vx == 0 && pacman.vy == 0)
+		{
+			pacman.vy = -2;
+		}
+		else if (pacman.vx < 0)
+		{
+			pacman.vy = -pacman.vx;
+			pacman.vx = 0;
+		}
+		else if (pacman.vx > 0)
+		{
+			pacman.vy = -pacman.vx;
+			pacman.vx = 0;
+		}
+		else if (pacman.vy > 0) {}
+		else if (pacman.vy < 0)
+		{
+			pacman.vy = -pacman.vy;
+			pacman.vx = 0;
+		}
+	}
+	 
+
+	maj_coord_pacman ();
+			
+	// Set the sprite's position
+	PA_DualSetSpriteXY(sprite_pacman, pacman.x, pacman.y);
 	
 }
 
 
 void jeu()
-{
+{	
+	creation_pacman ();
 	
 	/*!< Boucle infinie pour le déroulement du jeu >*/
 	while(1)
@@ -863,6 +1084,7 @@ void initialisation ()
     init_start ();
 
     chargement_palettes ();
+	
 
     // init_menu_principal ();
 
