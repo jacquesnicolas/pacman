@@ -805,8 +805,8 @@ void creation_pacman ()
 	// for(compteur = 0; compteur < nb_balles; compteur++)
 	// {
 		/*!< On met des coordonnées aléatoires dans la structure pacman. */
-        pacman.x = 64-16;	//(PA_RandMinMax(34,232));
-		pacman.y = 64;		//(PA_RandMinMax(34,158));
+        pacman.x = 0;//64-16;	//(PA_RandMinMax(34,232));
+		pacman.y = 0;//64;		//(PA_RandMinMax(34,158));
 
 
 		/*!< On donne une vitesse de départ à chaque pacman. */
@@ -850,6 +850,9 @@ void maj_coord_pacman ()
 {
 	pacman.x += pacman.vx;
     pacman.y += pacman.vy;
+	
+	PA_OutputText(1,1,1,"%d  ", pacman.x);
+    PA_OutputText(1,5,1,"%d  ", pacman.y);
 }
 
 
@@ -873,60 +876,42 @@ void gestion_collision_murs ()
     int coef = 0;
 
     /*!< On cherche l'orientation suivant l'axe des X */
-    if (balle[balle_en_cours].vx > 0)
+    if (pacman.vx > 0)
     {
         coef = rayon_pacman;
     }
-    else if (balle[balle_en_cours].vx < 0)
+    else if (pacman.vx < 0)
     {
         coef = -rayon_pacman;
     }
 
-    int test_x = (balle[balle_en_cours].x + balle[balle_en_cours].vx + coef) / 16;
+    int test_x = (pacman.x + pacman.vx + coef) / 16;
 
 
     /*!< On cherche l'orientation suivant l'axe des Y */
-    if (balle[balle_en_cours].vy > 0)
+    if (pacman.vy > 0)
     {
         coef = rayon_pacman;
     }
-    else if (balle[balle_en_cours].vy < 0)
+    else if (pacman.vy < 0)
     {
         coef = -rayon_pacman;
     }
 
-    int test_y = (balle[balle_en_cours].y + balle[balle_en_cours].vy + coef) / 16;
-
-    /*!< Contenu de la case sur laquelle sera la balle lors du prochain déplacement */
-    //int maze_balle_x = tab[test_x][balle[balle_en_cours].x/16].value;
-    //int maze_balle_y = tab[balle[balle_en_cours].y/16][test_y].value;
+    int test_y = (pacman.y + pacman.vy + coef) / 16;
+	
+	PA_OutputText(1,1,2,"%d  ", test_x);
+    PA_OutputText(1,5,2,"%d  ", test_y);
+	PA_OutputText(1,10,2,"val : %d  ", tab[test_x][test_y].value);
 
     /*!< Traitement EN COURS */
+	/*
     if (tab[test_x][test_y].value == 1)
     {
-        if (tab[test_x][test_y].type_mur == 1)
-        {
-            balle[balle_en_cours].vx = -balle[balle_en_cours].vx;
-        }
-        else if (tab[test_x][test_y].type_mur == 0)
-        {
-            balle[balle_en_cours].vy = -balle[balle_en_cours].vy;
-        }
-
-
-       
+       pacman.vx = 0;
+	   pacman.vy = 0;
     }
-/*
-    !< Partie collision EN COURS
-    if ((tab[test_x][test_y].flag == 1) || (tab[balle[balle_en_cours].x][balle[balle_en_cours].y].flag == 1))
-    {
-        if (vertical == 1)
-            collision = test_y;
-        else if (vertical == 0)
-            collision = test_x;
-    }
-    else collision = 0;
-*/
+	*/
 }
 
 
@@ -939,7 +924,20 @@ void gestion_collision_murs ()
 
 void deplacement_pacman()
 {	
-	if (Pad.Held.Right)
+
+	if (Pad.Held.A)
+	{
+		pacman.vx = 0;
+		pacman.vy = 0;
+	}
+	else if (Pad.Held.B)
+	{
+		pacman.vx = 0;
+		pacman.vy = 0;
+		pacman.x = 0;
+		pacman.y = 0;
+	}
+	else if (Pad.Held.Right)
 	{
 		PA_SetSpriteAnim(0, 0, 0); // screen, sprite, frame
 		PA_SetSpriteAnim(1, 0, 0); 
@@ -1047,6 +1045,8 @@ void deplacement_pacman()
 	 
 
 	maj_coord_pacman ();
+	
+	gestion_collision_murs ();
 			
 	// Set the sprite's position
 	PA_DualSetSpriteXY(sprite_pacman, pacman.x, pacman.y);
