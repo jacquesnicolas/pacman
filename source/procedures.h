@@ -16,14 +16,6 @@
 #include "all_gfx.h"
 
 
-// typedef struct
-// {
-	// int difficulte;
-	// int g[22][16];
-// } Grille;
-
-
-
 /**
  * @struct pacmanInfo
  * @brief Objet pacman
@@ -51,6 +43,7 @@ typedef struct{
     s16 numero_sprite;
     u8 type_sprite;
 	s16 flag;
+	//rajouter un attribue pour gérer l'air du pacmen sur le sprite
 }tabInfo;
 
 
@@ -80,7 +73,13 @@ void pause();
 
 void reboot();
 
+void creation_pacman ();
+
 void deplacement_pacman();
+
+void maj_coord_pacman ();
+
+void gestion_collision_murs ();
 
 
 #endif // PROCEDURES_H_INCLUDED
