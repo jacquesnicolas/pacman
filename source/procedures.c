@@ -62,7 +62,8 @@ pacmanInfo pacman;
  * La zone de 0 à 1 est réservée a Pacman,
  * La zone de 2 à 5 est réservée aux fantômes,
  * La zone de 6 à 30 est réservée aux bonnus,
- * La zone de 31 à 128 est réservée aux murs sur la map.
+ * La zone de 31 à 158 est réservée aux murs sur la map pour l'écran du haut,
+ * La zone de 159 à 256 est réservée aux murs sur la map pour l'écran du bas.
  */
 u8 sprite_pacman = 0;
 u8 sprite_ghost = 1;
@@ -556,7 +557,7 @@ void affichage_map ()
 		
 		/* Pour écran du bas */
 		
-	for ( j = 0; j < 15; j+=2 )
+	/*for ( j = 0; j < 15; j+=2 )
 	{
 		for (i = 0 ; i < 12 ; i++ )
 		{
@@ -816,7 +817,7 @@ void affichage_map ()
 						tab2[i][j].type_sprite = 32;
 			}
 		}
-	}
+	}*/
 		
 		
 		
@@ -899,21 +900,21 @@ void creation_pacman ()
  */
 void maj_coord_pacman ()
 {
-	pacman.x += pacman.vx;
-    pacman.y += pacman.vy;
+	pacman.x += (pacman.vx);
+    pacman.y += (pacman.vy);
 
-	PA_OutputText(1,1,1,"%d  ", pacman.x);
-    PA_OutputText(1,5,1,"%d  ", pacman.y);
+	//PA_OutputText(1,1,1,"%d  ", pacman.x);
+    //PA_OutputText(1,5,1,"%d  ", pacman.y);
 }
 
 
 /**
  * @fn void gestion_collision_murs ()
- * @brief Fonction qui gère la collision entre une balle et un mur.
+ * @brief Fonction qui gère la collision entre pacman et un mur.
  *
  * COLLISION AXE DES ABCISSES
- * Si la coordonnée en x de la balle i est inférieure ou égale à 7 (on prend en compte la taille de la bordure) et si sa vitesse en x
- * est inférieure à 0 (c'est à dire que la balle de déplace vers la gauche) alors on inverse siplement sa vitesse en x.
+ * Si la coordonnée en x de pacman i est inférieure ou égale à 7 (on prend en compte la taille de la bordure) et si sa vitesse en x
+ * est inférieure à 0 (c'est à dire que pacman se déplace vers la gauche) alors on inverse siplement sa vitesse en x.
  * Idem pour l'autre côté, en tenant compte de la bordure et en vérifiant que la vitesse en x est positive.
  *
  * COLLISION AXE DES ORDONNEES
@@ -1100,6 +1101,10 @@ void jeu()
 {
 	
 	creation_pacman ();
+	
+	PA_Init16bitBg(1, 3);   /*!< Profondeur 1 */
+
+	PA_Load16bitBitmap(1, Entete_Bitmap);
 	
 	/*!< Boucle infinie pour le déroulement du jeu >*/
 	while(1)
