@@ -922,44 +922,61 @@ void maj_coord_pacman ()
  */
 void gestion_collision_murs ()
 {
-    // int coef = 0;
+    int coef = 0;
 
-    // /*!< On cherche l'orientation suivant l'axe des X */
-    // if (pacman.vx > 0)
-    // {
-        // coef = rayon_pacman;
-    // }
-    // else if (pacman.vx < 0)
-    // {
-        // coef = -rayon_pacman;
-    // }
+    /*!< On cherche l'orientation suivant l'axe des X */
+    if (pacman.vx > 0)
+    {
+        coef = rayon_pacman;
+    }
+    else if (pacman.vx < 0)
+    {
+        coef = -rayon_pacman;
+    }
 
-    // int test_x = (pacman.x + pacman.vx + coef) / 16;
+    int test_x = (pacman.x + pacman.vx + coef) / 16;
 
 
-    // /*!< On cherche l'orientation suivant l'axe des Y */
-    // if (pacman.vy > 0)
-    // {
-        // coef = rayon_pacman;
-    // }
-    // else if (pacman.vy < 0)
-    // {
-        // coef = -rayon_pacman;
-    // }
+    /*!< On cherche l'orientation suivant l'axe des Y */
+    if (pacman.vy > 0)
+    {
+        coef = rayon_pacman;
+    }
+    else if (pacman.vy < 0)
+    {
+        coef = -rayon_pacman;
+    }
 
-    // int test_y = (pacman.y + pacman.vy + coef) / 16;
+    int test_y = (pacman.y + pacman.vy + coef) / 16;
 
-	// PA_OutputText(1,1,2,"%d  ", test_x);
-    // PA_OutputText(1,5,2,"%d  ", test_y);
-	// PA_OutputText(1,10,2,"val : %d  ", tab1[test_x][test_y].value);
+	//PA_OutputText(1,1,2,"%d  ", test_x);
+    //PA_OutputText(1,5,2,"%d  ", test_y);
+	//PA_OutputText(1,10,2,"val : %d  ", tab1[test_x][test_y].value);
 
-    // /*!< Traitement EN COURS */
+    /*!< Traitement EN COURS */
 	
     // if (tab1[test_y][test_x].value == 1 || tab2[test_y][test_x].value == 1)
     // {
        // pacman.vx = 0;
 	   // pacman.vy = 0;
     // }
+	
+	if (pacman.x == 240 && pacman.vx >0)
+	{
+		pacman.vx = 0;
+	}
+	else if (pacman.x == 0 && pacman.vx <0)
+	{
+		pacman.vx = 0;
+	}
+	else if (pacman.y == 176 && pacman.vy >0)
+	{
+		pacman.vy = 0;
+	}
+	else if (pacman.y == 48 && pacman.vy <0)
+	{
+		pacman.vy = 0;
+	}
 	
 }
 
@@ -981,107 +998,135 @@ void deplacement_pacman()
 	}
 	else if (Pad.Held.Right)
 	{
-		PA_SetSpriteAnim(0, 0, 0); // screen, sprite, frame
-		PA_SetSpriteAnim(1, 0, 0); 
+		if (pacman.x == 240)
+		{
+			pacman.vx = 0;
+		}
+		else
+		{
+			PA_SetSpriteAnim(0, 0, 0); // screen, sprite, frame
+			PA_SetSpriteAnim(1, 0, 0); 
 
-		if (pacman.vx == 0 && pacman.vy == 0)
-		{
-			pacman.vx = 1.5;
-		}
-		else if (pacman.vx < 0)
-		{
-			pacman.vx = -pacman.vx;
-			pacman.vy = 0;
-		}
-		else if (pacman.vx > 0) {}
-		else if (pacman.vy > 0)
-		{
-			pacman.vx = pacman.vy;
-			pacman.vy = 0;
-		}
-		else if (pacman.vy < 0)
-		{
-			pacman.vx = -pacman.vy;
-			pacman.vy = 0;
+			if (pacman.vx == 0 && pacman.vy == 0)
+			{
+				pacman.vx = 1.5;
+			}
+			else if (pacman.vx < 0)
+			{
+				pacman.vx = -pacman.vx;
+				pacman.vy = 0;
+			}
+			else if (pacman.vx > 0) {}
+			else if (pacman.vy > 0)
+			{
+				pacman.vx = pacman.vy;
+				pacman.vy = 0;
+			}
+			else if (pacman.vy < 0)
+			{
+				pacman.vx = -pacman.vy;
+				pacman.vy = 0;
+			}
 		}
 	}
 	else if (Pad.Held.Left)
 	{
-		PA_SetSpriteAnim(0, 0, 3);
-		PA_SetSpriteAnim(1, 0, 3);
+		if (pacman.x == 0)
+		{
+			pacman.vx = 0;
+		}
+		else
+		{
+			PA_SetSpriteAnim(0, 0, 3);
+			PA_SetSpriteAnim(1, 0, 3);
 
-		if (pacman.vx == 0 && pacman.vy == 0)
-		{
-			pacman.vx = -1.5;
-		}
-		else if (pacman.vx < 0) {}
-		else if (pacman.vx > 0)
-		{
-			pacman.vx = -pacman.vx;
-			pacman.vy = 0;
-		}
-		else if (pacman.vy > 0)
-		{
-			pacman.vx = pacman.vy;
-			pacman.vy = 0;
-		}
-		else if (pacman.vy < 0)
-		{
-			pacman.vx = -pacman.vy;
-			pacman.vy = 0;
+			if (pacman.vx == 0 && pacman.vy == 0)
+			{
+				pacman.vx = -1.5;
+			}
+			else if (pacman.vx < 0) {}
+			else if (pacman.vx > 0)
+			{
+				pacman.vx = -pacman.vx;
+				pacman.vy = 0;
+			}
+			else if (pacman.vy > 0)
+			{
+				pacman.vx = pacman.vy;
+				pacman.vy = 0;
+			}
+			else if (pacman.vy < 0)
+			{
+				pacman.vx = -pacman.vy;
+				pacman.vy = 0;
+			}
 		}
 	}
 	else if (Pad.Held.Up)
 	{
-		PA_SetSpriteAnim(0, 0, 1); 
-		PA_SetSpriteAnim(1, 0, 1);
+		if (pacman.y == 48)
+		{
+			pacman.vy = 0;
+		}
+		else
+		{
+			PA_SetSpriteAnim(0, 0, 1); 
+			PA_SetSpriteAnim(1, 0, 1);
 
-		if (pacman.vx == 0 && pacman.vy == 0)
-		{
-			pacman.vy = 1.5;
+			if (pacman.vx == 0 && pacman.vy == 0)
+			{
+				pacman.vy = 1.5;
+			}
+			else if (pacman.vx < 0)
+			{
+				pacman.vy = -pacman.vx;
+				pacman.vx = 0;
+			}
+			else if (pacman.vx > 0)
+			{
+				pacman.vy = -pacman.vx;
+				pacman.vx = 0;
+			}
+			else if (pacman.vy > 0)
+			{
+				pacman.vy = -pacman.vy;
+				pacman.vx = 0;
+			}
+			else if (pacman.vy < 0) {}
 		}
-		else if (pacman.vx < 0)
-		{
-			pacman.vy = -pacman.vx;
-			pacman.vx = 0;
-		}
-		else if (pacman.vx > 0)
-		{
-			pacman.vy = -pacman.vx;
-			pacman.vx = 0;
-		}
-		else if (pacman.vy > 0)
-		{
-			pacman.vy = -pacman.vy;
-			pacman.vx = 0;
-		}
-		else if (pacman.vy < 0) {}
 
 	}
 	else if (Pad.Held.Down)
 	{
-		PA_SetSpriteAnim(0, 0, 2);
-		PA_SetSpriteAnim(1, 0, 2);
+		if (pacman.y == 176)
+		{
+			pacman.vy = 0;
+		}
+		else
+		{
+			PA_SetSpriteAnim(0, 0, 2);
+			PA_SetSpriteAnim(1, 0, 2);
 
-		if (pacman.vx == 0 && pacman.vy == 0)
-		{
-			pacman.vy = -1.5;
-		}
-		else if (pacman.vx < 0)
-		{
-			pacman.vy = -pacman.vx;
-			pacman.vx = 0;
-		}
-		else if (pacman.vx > 0)
-		{
-			pacman.vy = -pacman.vx;
-			pacman.vx = 0;
-		}
-		else if (pacman.vy > 0) {}
-		else if (pacman.vy < 0)
-		{
-			pacman.vy = -pacman.vy;
-			pacman.vx = 0;
+			if (pacman.vx == 0 && pacman.vy == 0)
+			{
+				pacman.vy = -1.5;
+			}
+			else if (pacman.vx < 0)
+			{
+				pacman.vy = -pacman.vx;
+				pacman.vx = 0;
+			}
+			else if (pacman.vx > 0)
+			{
+				pacman.vy = -pacman.vx;
+				pacman.vx = 0;
+			}
+			else if (pacman.vy > 0) {}
+			else if (pacman.vy < 0)
+			{
+				pacman.vy = -pacman.vy;
+				pacman.vx = 0;
+			}
 		}
 	}
 
